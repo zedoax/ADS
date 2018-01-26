@@ -3,6 +3,8 @@
  * @author Zedoax
  */
 
+/* Navbar Styles */
+
 .navbar {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.19);
 }
@@ -14,6 +16,8 @@ ul.nav a {
 ul.nav a:hover {
     color: #ffffff !important;
 }
+
+/* Card Styles */
 
 .card {
     transition: 0.3s;
@@ -28,6 +32,8 @@ ul.nav a:hover {
 .card-noshadow .card-noshadow:hover{
     box-shadow: none;
 }
+
+/* Default Styles */
 
 body {
     font-family: Roboto, monospace;

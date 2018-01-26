@@ -1,9 +1,7 @@
 package org.aogiri;
 
 import com.google.gson.Gson;
-import org.aogiri.routes.GetHomeRoute;
-import org.aogiri.routes.GetLoginRoute;
-import org.aogiri.routes.GetPackagesRoute;
+import org.aogiri.routes.*;
 import spark.TemplateEngine;
 
 import static spark.Spark.get;
@@ -21,6 +19,8 @@ public class WebServer {
     private static final String HOME_URL = "/";
     private static final String LOGIN_URL = "/login";
     private static final String PACKAGES_URL = "/packages";
+    private static final String PROFILE_URL = "/profile";
+    private static final String TRACKING_URL = "/tracking";
 
     // Attributes
     private final TemplateEngine templateEngine;
@@ -42,6 +42,8 @@ public class WebServer {
         get(HOME_URL, new GetHomeRoute(templateEngine));
         get(LOGIN_URL, new GetLoginRoute(templateEngine));
         get(PACKAGES_URL, new GetPackagesRoute(templateEngine));
+        get(PROFILE_URL, new GetProfileRoute(templateEngine));
+        get(TRACKING_URL, new GetTrackingRoute(templateEngine));
 
     }
 }

@@ -21,13 +21,13 @@
                 <a  class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link disabled" href="#">Packages</a>
+                <a class="nav-link disabled" href="/packages">Packages</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link disabled" href="#">Account</a>
+                <a class="nav-link disabled" href="/profile">Profile</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link disabled" href="#">Tracking</a>
+                <a class="nav-link disabled" href="/tracking">Tracking</a>
             </li>
         </ul>
 </nav>

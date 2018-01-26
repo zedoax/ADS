@@ -15,19 +15,19 @@
 <body>
 <!-- Navigation Content -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Amazan </a>
+    <a class="navbar-brand" href="../">Amazan </a>
     <ul class="navbar-nav">
         <li class="nav-item">
-            <a  class="nav-link" href="http://localhost:4567/">Home</a>
+            <a  class="nav-link" href="../">Home</a>
         </li>
         <li class="nav-item active">
             <a class="nav-link" href="#">Packages <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link disabled" href="http://localhost:4567/account">Account</a>
+            <a class="nav-link" href="../profile">Profile</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link disabled" href="http://localhost:4567/tracking">Tracking</a>
+            <a class="nav-link" href="../tracking">Tracking</a>
         </li>
     </ul>
 </nav>
