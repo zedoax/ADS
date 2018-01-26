@@ -18,6 +18,13 @@
 
     <dependencies>
 
+        <!-- H2 Database -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.196</version>
+        </dependency>
+
         <!-- Spark Java -->
         <dependency>
             <groupId>com.sparkjava</groupId>
