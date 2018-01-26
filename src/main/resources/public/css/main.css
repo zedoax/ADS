@@ -1,0 +1,40 @@
+/**
+ * Custom Styles
+ * @author Zedoax
+ */
+
+.navbar {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.19);
+}
+
+ul.nav a {
+    color: #eeeeee !important;
+}
+
+ul.nav a:hover {
+    color: #ffffff !important;
+}
+
+.card {
+    transition: 0.3s;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.19);
+}
+
+.card:hover {
+    transition: 0.3s;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
+}
+
+.card-noshadow .card-noshadow:hover{
+    box-shadow: none;
+}
+
+body {
+    font-family: Roboto, monospace;
+}
+
+html {
+    color: #222;
+    font-size: 1em;
+    line-height: 1.4;
+}
