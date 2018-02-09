@@ -24,6 +24,8 @@ public class WebServer {
     private static final String SIGN_UP_URL = "/signup";
     private static final String ADMIN_URL = "/admin";
     private static final String LANDING_URL = "/landing";
+    private static final String CREATE_URL = "/create";
+    private static final String LOGOUT_URL = "/logout";
 
     // Attributes
     private final TemplateEngine templateEngine;
@@ -52,6 +54,7 @@ public class WebServer {
         post(SIGN_UP_URL, new PostSignupRoute(gson));
         get(ADMIN_URL, new GetAdminRoute(templateEngine));
         get(LANDING_URL, new GetLandingRoute(templateEngine));
+        post(CREATE_URL, new PostCreateRoute(gson));
 
     }
 }

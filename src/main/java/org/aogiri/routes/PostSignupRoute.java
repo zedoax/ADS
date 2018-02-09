@@ -44,14 +44,11 @@ public class PostSignupRoute implements Route{
         String passhash = request.queryParams("hash");
         String confirmPasshash = request.queryParams("hash-confirm");
 
-        if(!passhash.equals(confirmPasshash)) {
-            response.status(303);
-            return null;
+        // Account Creation
 
-        }
 
+        // Redirect the user after storing user information
         response.redirect("../", 302);
-        // Return any errors
         return null;
 
     }
