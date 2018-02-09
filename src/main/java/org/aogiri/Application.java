@@ -4,6 +4,10 @@ import com.google.gson.Gson;
 import spark.TemplateEngine;
 import spark.template.freemarker.FreeMarkerEngine;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 /**
   * Created by Zedoax on 1/25/2018.
  */
@@ -23,6 +27,15 @@ public class Application {
 
             // Gson for converting ajax requests to json and vise versa
             final Gson gson = new Gson();
+
+            // H2 Database
+            try {
+                Connection connection = DriverManager.getConnection("jdbc:h2:~/resources/db", "amazan", "amazingy");
+                // Class.forName("org.h2.Driver");
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.exit(1);
+            }
 
             // Inject the game center and freemarker engine into web server
             final WebServer webServer = new WebServer(templateEngine, gson);

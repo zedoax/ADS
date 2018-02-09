@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/main.css">
-    <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery-3.3.1.min.js"></script>
@@ -24,7 +23,7 @@
             <a class="nav-link" href="../packages">Packages</a>
         </li>
         <li class="nav-item active">
-            <a class="nav-link" href="#">Account <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#">Profile <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="../tracking">Tracking</a>
@@ -49,18 +48,40 @@
         </div>
         <div class="col-9">
             <div class="card">
-                <h5 class="pl-2 pt-2">Password Change:</h5>
+                <h6 class="pl-3 pt-3 text-muted">Password Change:</h6>
                 <form class="m-2">
-                    <label for="current-password" class="sr-only">Input Current Password</label>
+                    <label for="current-password">Confirm Current Password</label>
                     <input type="password" id="current-password" class="form-control" placeholder="Current Password" required>
                     <div class="p-2"></div>
-                    <label for="new-password" class="sr-only">New Password</label>
+                    <label for="new-password">New Password</label>
                     <input type="password" id="new-password" class="form-control" placeholder="New Password" required>
                     <div class="p-2"></div>
-                    <label for="new-password-confirm" class="sr-only">Confirm New Password</label>
+                    <label for="new-password-confirm">Confirm New Password</label>
                     <input type="password" id="new-password-confirm" class="form-control" placeholder="Confirm New Password" required>
                     <div class="p-2"></div>
                     <button type="submit" class="btn btn-primary">Change Password</button>
+                </form>
+                <div class="p-2"></div>
+                <h6 class="pl-2 pt-2 text-muted">Address Change:</h6>
+                <form class="m-2">
+                    <label for="current-password">Confirm Current Password</label>
+                    <input type="password" id="current-password" class="form-control" placeholder="Current Password" required>
+                    <div class="p-2"></div>
+                    <label for="new-address">New Address</label>
+                    <input type="text" id="new-address" class="form-control" placeholder="New Address" required>
+                    <div class="p-2"></div>
+                    <button type="submit" class="btn btn-primary">Change Address</button>
+                </form>
+                <div class="p-2"></div>
+                <h6 class="pl-2 pt-2 text-muted">Name Change:</h6>
+                <form class="m-2">
+                    <label for="current-password">Confirm Current Password</label>
+                    <input type="password" id="current-password" class="form-control" placeholder="Current Password" required>
+                    <div class="p-2"></div>
+                    <label for="new-name">New Name</label>
+                    <input type="text" id="new-name" class="form-control" placeholder="New Name" required>
+                    <div class="p-2"></div>
+                    <button type="submit" class="btn btn-primary">Change Name</button>
                 </form>
             </div>
         </div>

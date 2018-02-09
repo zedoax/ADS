@@ -21,6 +21,9 @@ public class WebServer {
     private static final String PACKAGES_URL = "/packages";
     private static final String PROFILE_URL = "/profile";
     private static final String TRACKING_URL = "/tracking";
+    private static final String SIGN_UP_URL = "/signup";
+    private static final String ADMIN_URL = "/admin";
+    private static final String LANDING_URL = "/landing";
 
     // Attributes
     private final TemplateEngine templateEngine;
@@ -41,9 +44,14 @@ public class WebServer {
         // Declare route handlers //
         get(HOME_URL, new GetHomeRoute(templateEngine));
         get(LOGIN_URL, new GetLoginRoute(templateEngine));
+        post(LOGIN_URL, new PostLoginRoute(gson));
         get(PACKAGES_URL, new GetPackagesRoute(templateEngine));
         get(PROFILE_URL, new GetProfileRoute(templateEngine));
         get(TRACKING_URL, new GetTrackingRoute(templateEngine));
+        get(SIGN_UP_URL, new GetSignupRoute(templateEngine));
+        post(SIGN_UP_URL, new PostSignupRoute(gson));
+        get(ADMIN_URL, new GetAdminRoute(templateEngine));
+        get(LANDING_URL, new GetLandingRoute(templateEngine));
 
     }
 }

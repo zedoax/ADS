@@ -12,28 +12,22 @@
     </head>
 
     <body>
-        <!-- Navigation Content -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="../">Amazan </a>
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a  class="nav-link" href="../">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../packages">Packages</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../profile">Profile</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Tracking <span class="sr-only">(current)</span></a>
-                </li>
-            </ul>
-        </nav>
-
         <!-- Page Content -->
-        <div class="container">
-            <div class="card m-2 p-2">
+        <div class="w-100 p-5 fill bg-dark">
+            <div class="p-5"></div>
+            <h2 class="text-light p-5 text-center">Amazan Delivery Service</h2>
+            <div class="p-5"></div>
+            <p class="text-light p-5 text-center">Combining the best service, materials, and shipping routes to bring you quality, speedy delivery of packages.  We provide the best
+            in customer assurance, and quality of service.  Want to join?</p>
+            <div class="text-light p-5 text-center">
+                <a href="../login" class="btn btn-primary d-inline-block">Log In </a>
+                <a href="../signup" class="btn btn-primary d-inline-block">Sign Up</a>
+            </div>
+        </div>
+
+        <!-- Tracking Content -->
+        <div class="container pt-3 pb-3">
+            <div class="card m-5 p-3">
                 <form>
                     <label class="sr-only" for="tracking">Input Tracking Number</label>
                     <div class="p-2"></div>

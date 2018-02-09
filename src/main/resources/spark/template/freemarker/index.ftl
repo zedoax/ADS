@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/main.css">
-    <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery-3.3.1.min.js"></script>
@@ -55,7 +54,7 @@
             <div class="card">
                 <div class="card-content p-3">
                     <div class="card-title">
-                        <h5>Ship a package:</h5>
+                        <h6 class="text-muted">Ship a package:</h6>
                         <form>
                             <div class="form-group">
                                 <label for="name">Name</label>
