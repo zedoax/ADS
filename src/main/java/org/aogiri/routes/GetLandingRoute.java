@@ -5,13 +5,13 @@ import spark.*;
 import java.util.HashMap;
 
 /**
- * Created by Zedoax on 1/25/2018
+ * Created by Zedoax on 1/28/2018.
  */
-public class GetHomeRoute implements Route {
+public class GetLandingRoute implements Route {
 
     // Static variables
-    public static final String VIEW_NAME = "index.ftl";
-    public static final String TITLE = "Amazan | Home";
+    public static final String VIEW_NAME = "landing.ftl";
+    public static final String TITLE = "Amazan";
 
     // Instance variables
     private final TemplateEngine templateEngine;
@@ -21,7 +21,7 @@ public class GetHomeRoute implements Route {
      *
      * @param templateEngine - the HTML template rendering engine
      */
-    public GetHomeRoute(final TemplateEngine templateEngine) {
+    public GetLandingRoute(final TemplateEngine templateEngine) {
         this.templateEngine = templateEngine;
     }
 
@@ -36,12 +36,6 @@ public class GetHomeRoute implements Route {
 
         // Retrieve the Session objects
         Session session = request.session();
-        String sessionId = session.attribute("session_id");
-
-        // Decide if a redirect is required
-        if(sessionId == null) {
-            response.redirect("../landing", 302);
-        }
 
         // Build the view-model
         HashMap<String, Object> vm = new HashMap<>();
