@@ -3,7 +3,7 @@
 -- package(package_id, weight_class, package_type, hazardous, tracking_id)
 -- package(id, varchar(20), varchar(20), boolean, id)
 
-insert into packages VALUES
+insert into package_db VALUES
 (8594557493867543547475836, 'light', 'flat', 0, 3875987432530000000055344),
 (9999557493867543547475836, 'light', 'flat', 0, 9348436076935476393474123),
 (8888557493867543547475836, 'light', 'flat', 0, 4375986327487294875873544),

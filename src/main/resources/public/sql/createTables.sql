@@ -1,3 +1,4 @@
+
 CREATE TABLE account (
 	username VARCHAR(20) NOT NULL PRIMARY KEY,
 	password VARCHAR(64) NOT NULL,
@@ -9,6 +10,7 @@ CREATE TABLE account (
 	address_city VARCHAR(20) NOT NULL,
 	address_zipcode MEDIUMINT(5) UNSIGNED NOT NULL
 );
+
 
 CREATE TABLE contract_member(
 	member_id INT NOT NULL PRIMARY KEY,
@@ -24,9 +26,8 @@ CREATE TABLE non_contract_member(
 
 CREATE TABLE payment(
 	username VARCHAR(20) REFERENCES account(username),
-	payment DECIMAL(20,2) NOT NULL,
-	pay_date DATE NOT NULL
-);
+	payment DECIMAL(20,2),
+	pay_date DATE NOT NULL);
 
 
 CREATE TABLE package_weight(
@@ -54,18 +55,18 @@ CREATE TABLE vehicle(
 	destination_id INT REFERENCES station(location_id)
 );
 
-CREATE TABLE tracking(
+CREATE TABLE tracking_db (
 	tracking_id INT NOT NULL PRIMARY KEY,
 	destination_number INT NOT NULL,
 	destination_street VARCHAR(40) NOT NULL,
 	destination_city VARCHAR(20) NOT NULL,
-	destiantion_zipcode MEDIUMINT(5) UNSIGNED NOT NULL,
+	destination_zipcode MEDIUMINT(5) UNSIGNED NOT NULL,
 	shipping_days INT NOT NULL,
 	status VARCHAR(20),
 	vehicle_id INT REFERENCES vehicle(vehicle_id)
 );
 
-CREATE TABLE package(
+CREATE TABLE package_db (
 	package_id INT NOT NULL PRIMARY KEY,
 	weight_class VARCHAR(20) REFERENCES package_weight(weight_class),
 	package_type VARCHAR(20) REFERENCES package_class(package_type),
@@ -73,7 +74,7 @@ CREATE TABLE package(
 	tracking_id INT REFERENCES tracking(tracking_id)
 );
 
-CREATE TABLE location_log(
+CREATE TABLE location_log (
 	package_id INT REFERENCES package(package_id),
 	location_id INT REFERENCES station(location_id)
 );

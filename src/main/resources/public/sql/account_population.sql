@@ -3,7 +3,7 @@
 -- account(username, password, session_token, first_name, last_name, address_number, address_number, address_city, address_zipcode)
 -- account(varchar(20), varchar(64), varchar(25), varchar(20), varchar(20), integer, varchar(40), varchar(20), zipcode(minval 00000, maxval 99999))
 
-insert into accounts VALUES
+insert into account VALUES
 ('cGrimes', 'eVERyoneOPPOSITEPREPAREDdAmaSCUsIndicateBARbadosELEMENTS', 'a9dv3ujdew87h4g8lj2ghib4z', 'Carl', 'Grimes', 1, '1', 'Atlanta', 30301),
 ('kGrimes', 'Password', null, 'Rick', 'Grimes' 1, '1', 'Atlanta', 30301),
 ('SaraJones', 'atTheWorld', 'b2dv3uvdew87g4g8lj2ghob4z', 'Sara', 'Jones', 1682, '1682' 'Keeseville', 12944),
