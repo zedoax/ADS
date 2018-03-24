@@ -2,6 +2,7 @@ package org.aogiri.routes;
 
 import spark.*;
 
+import java.sql.Connection;
 import java.util.HashMap;
 
 /**
@@ -15,14 +16,16 @@ public class GetAdminRoute implements Route {
 
     // Instance variables
     private final TemplateEngine templateEngine;
+    private final Connection conn;
 
     /**
      * Create the HTTP / GET Request Handle
      *
      * @param templateEngine - the HTML template rendering engine
      */
-    public GetAdminRoute(final TemplateEngine templateEngine) {
+    public GetAdminRoute(final TemplateEngine templateEngine, final Connection conn) {
         this.templateEngine = templateEngine;
+        this.conn = conn;
     }
 
     /**

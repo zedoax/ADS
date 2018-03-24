@@ -45,12 +45,20 @@
             <div class="card">
                 <div class="card-content">
                     <div class="card-header">
-                        Notifications
+                        Billing
                     </div>
                     <div class="card-body">
                         <div class="card card-noshadow p-2">
                             <div class="card-body">
-                                <p>This is a sample notification</p>
+                                <div class="row">
+                                    <div class="col-10">
+                                        <h3>Package 0000000000000000000000</h3>
+                                    </div>
+                                    <div class="col-2">
+                                        <h5>$10.00</h5>
+                                    </div>
+                                </div>
+                                <p>This is a sample transaction</p>
                             </div>
                         </div>
                     </div>

@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import org.aogiri.routes.*;
 import spark.TemplateEngine;
 
+import java.sql.Connection;
+
 import static spark.Spark.get;
 import static spark.Spark.post;
 import static spark.SparkBase.staticFileLocation;
@@ -29,10 +31,12 @@ public class WebServer {
 
     // Attributes
     private final TemplateEngine templateEngine;
+    private final Connection conn;
     private final Gson gson;
 
-    public WebServer(TemplateEngine templateEngine, Gson gson) {
+    public WebServer(TemplateEngine templateEngine, Connection conn, Gson gson) {
         this.templateEngine = templateEngine;
+        this.conn = conn;
         this.gson = gson;
     }
 
@@ -44,17 +48,17 @@ public class WebServer {
         staticFileLocation("/public");
 
         // Declare route handlers //
-        get(HOME_URL, new GetHomeRoute(templateEngine));
-        get(LOGIN_URL, new GetLoginRoute(templateEngine));
-        post(LOGIN_URL, new PostLoginRoute(gson));
-        get(PACKAGES_URL, new GetPackagesRoute(templateEngine));
-        get(PROFILE_URL, new GetProfileRoute(templateEngine));
-        get(TRACKING_URL, new GetTrackingRoute(templateEngine));
-        get(SIGN_UP_URL, new GetSignupRoute(templateEngine));
-        post(SIGN_UP_URL, new PostSignupRoute(gson));
-        get(ADMIN_URL, new GetAdminRoute(templateEngine));
-        get(LANDING_URL, new GetLandingRoute(templateEngine));
-        post(CREATE_URL, new PostCreateRoute(gson));
+        get(HOME_URL, new GetHomeRoute(templateEngine, conn));
+        get(LOGIN_URL, new GetLoginRoute(templateEngine, conn));
+        post(LOGIN_URL, new PostLoginRoute(gson, conn));
+        get(PACKAGES_URL, new GetPackagesRoute(templateEngine, conn));
+        get(PROFILE_URL, new GetProfileRoute(templateEngine, conn));
+        get(TRACKING_URL, new GetTrackingRoute(templateEngine, conn));
+        get(SIGN_UP_URL, new GetSignupRoute(templateEngine, conn));
+        post(SIGN_UP_URL, new PostSignupRoute(gson, conn));
+        get(ADMIN_URL, new GetAdminRoute(templateEngine, conn));
+        get(LANDING_URL, new GetLandingRoute(templateEngine, conn));
+        post(CREATE_URL, new PostCreateRoute(gson, conn));
 
     }
 }

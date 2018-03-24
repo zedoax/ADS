@@ -3,6 +3,7 @@ package org.aogiri.routes;
 import com.google.gson.Gson;
 import spark.*;
 
+import java.sql.Connection;
 import java.util.HashMap;
 
 /**
@@ -11,14 +12,16 @@ import java.util.HashMap;
 public class PostSignupRoute implements Route{
     // Instance variables
     private final Gson gson;
+    private final Connection conn;
 
     /**
      * Create the HTTP / GET Request Handle
      *
      * @param gson - Gson interpreter
      */
-    public PostSignupRoute(final Gson gson) {
+    public PostSignupRoute(final Gson gson, final Connection conn) {
         this.gson = gson;
+        this.conn = conn;
     }
 
     /**

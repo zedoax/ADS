@@ -25,20 +25,37 @@ public class Application {
             // Freemarker templates to generate HTML responses sent to client
             final TemplateEngine templateEngine = new FreeMarkerEngine();
 
+            // H2 Database connection
+            Connection conn = null;
+
             // Gson for converting ajax requests to json and vise versa
             final Gson gson = new Gson();
 
             // H2 Database
             try {
-                Connection connection = DriverManager.getConnection("jdbc:h2:~/resources/db", "amazan", "amazingy");
+                // Database URL
+                String url = "jdbc:h2:~/resources/db";
+
+                // Use H2 Driver
+                Class.forName("org.h2.Driver");
+
+                // Database Connection
+                conn = DriverManager.getConnection(url, "amazan", "amazingy");
+
                 // Class.forName("org.h2.Driver");
-            } catch (SQLException e) {
+            } catch (SQLException | ClassNotFoundException e) {
                 e.printStackTrace();
                 System.exit(1);
             }
 
+            // Check for errors in H2 initialization
+            if(conn == null) {
+                // TODO: Initialization Error Handling
+                System.exit(1);
+            }
+
             // Inject the game center and freemarker engine into web server
-            final WebServer webServer = new WebServer(templateEngine, gson);
+            final WebServer webServer = new WebServer(templateEngine, conn, gson);
 
             // inject web server into application
             final Application application = new Application(webServer);
