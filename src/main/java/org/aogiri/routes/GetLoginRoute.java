@@ -39,7 +39,6 @@ public class GetLoginRoute implements Route {
 
         // Build the view-model
         HashMap<String, Object> vm = new HashMap<>();
-
         // What must be populated
         vm.put("title", TITLE);
 
