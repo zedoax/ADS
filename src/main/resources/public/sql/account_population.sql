@@ -21,7 +21,7 @@ insert into account VALUES
 ('Arrrtz', 'enememy', null, 'Deryn', 'Makowski', 7762, '7762', 'Plattsburgh', 12901)
 ('Wilmist', 'goggleIT', null, 'Will', 'Mosk', 7, '7', 'Plattsburgh', 12903),
 ('BipsTheFool', 'CisforCobalt', null, 'Chris', 'Cauthorn', 342, '342', 'Los Angeles', 90001),
-('ThunderBolt84', 'CoinmiNting', null, 'Chris', 'Kelly', 976, '976', 'Peru', 12972),\
+('ThunderBolt84', 'CoinmiNting', null, 'Chris', 'Kelly', 976, '976', 'Peru', 12972),
 ('AtTheFaceAtTheFace', 'NumberUnoDos3','f5dv3uvdew87g4g8lj2ghob4z', 'Nick', 'Abagis', 208, '208', 'Jersey', 07087)
 ('PinaBanana', 'FruitsveggiesCars', null, 'Trudy', 'Berns', 8643, '8643', 'Austin', 73301),
 ('IntoTheToaster', 'IfIWEREAPOPTART', null, 'Poppy', 'Popes', 75, '75', 'Denver', 80224);
