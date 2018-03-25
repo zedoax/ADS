@@ -7,4 +7,4 @@ insert into package_class VALUES
 ('envelope', 2.3),
 ('small box', 5.1),
 ('large box', 9.4),
-('flat', 1.0),
+('flat', 1.0);
