@@ -80,7 +80,7 @@ public class Application {
             // Check for errors in H2 initialization
             if(user == null || tracking == null || employee == null) {
                 // TODO: Initialization Error Handling
-                System.exit(1);
+                // System.exit(1);
             }
 
             // Add shutdown closing

@@ -28,6 +28,12 @@ public class WebServer {
     private static final String LANDING_URL = "/landing";
     private static final String CREATE_URL = "/create";
     private static final String LOGOUT_URL = "/logout";
+    private static final String TRUCK_URL = "/truck";
+    private static final String PACKAGE_URL = "/package";
+    private static final String PAYMENT_URL = "/pay";
+    private static final String SCENTER_URL = "/shippingCenter";
+    private static final String USER_URL = "/user";
+    private static final String MEMBER_URL = "/membership";
 
     // Attributes
     private final TemplateEngine templateEngine;

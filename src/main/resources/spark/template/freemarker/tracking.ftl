@@ -99,7 +99,9 @@
                                 <input type="number" class="form-control" id="tracking" placeholder="Tracking Identification" required>
                             </#if>
                             <div class="invalid-feedback">
-                                ${message}
+                                <#if message??>
+                                    ${message}
+                                </#if>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Track My Package</button>

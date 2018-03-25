@@ -82,21 +82,8 @@
                 </div>
             </div>
         <#else>
-            <div class="card p-2 mb-3">
-                <form>
-                    <div class="form-group">
-                        <label class="sr-only" for="tracking">Input Tracking Number</label>
-                        <#if invalid??>
-                            <input type="number" class="form-control is-invalid" id="tracking" placeholder="Tracking Identification" required>
-                            <div class="invalid-feedback">
-                                ${message}
-                            </div>
-                        <#else>
-                            <input type="number" class="form-control" id="tracking" placeholder="Tracking Identification" required>
-                        </#if>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Track My Package</button>
-                </form>
+            <div class="card p-2 mb-3 text-center">
+                <a href="/tracking" class="btn btn-primary">Track a Package</a>
             </div>
         </#if>
         </div>
