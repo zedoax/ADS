@@ -3,6 +3,8 @@ package org.aogiri.routes;
 import com.google.gson.Gson;
 import spark.*;
 
+import java.sql.Connection;
+
 /**
  * Created by Zedoax on 1/29/2018.
  */
@@ -10,14 +12,16 @@ public class PostLoginRoute implements Route{
 
     // Instance variables
     private final Gson gson;
+    private final Connection conn;
 
     /**
      * Create the HTTP / GET Request Handle
      *
      * @param gson - the JSON parsing / creation tool
      */
-    public PostLoginRoute(final Gson gson) {
+    public PostLoginRoute(final Gson gson, final Connection conn) {
         this.gson = gson;
+        this.conn = conn;
     }
 
     /**

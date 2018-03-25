@@ -2,6 +2,7 @@ package org.aogiri.routes;
 
 import spark.*;
 
+import java.sql.Connection;
 import java.util.HashMap;
 
 /**
@@ -15,14 +16,16 @@ public class GetSignupRoute implements Route {
 
     // Instance variables
     private final TemplateEngine templateEngine;
+    private final Connection conn;
 
     /**
      * Create the HTTP / GET Request Handle
      *
      * @param templateEngine - the HTML template rendering engine
      */
-    public GetSignupRoute(final TemplateEngine templateEngine) {
+    public GetSignupRoute(final TemplateEngine templateEngine, final Connection conn) {
         this.templateEngine = templateEngine;
+        this.conn = conn;
     }
 
     /**

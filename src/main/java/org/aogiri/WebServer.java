@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import org.aogiri.routes.*;
 import spark.TemplateEngine;
 
+import java.sql.Connection;
+
 import static spark.Spark.get;
 import static spark.Spark.post;
 import static spark.SparkBase.staticFileLocation;
@@ -26,13 +28,33 @@ public class WebServer {
     private static final String LANDING_URL = "/landing";
     private static final String CREATE_URL = "/create";
     private static final String LOGOUT_URL = "/logout";
+    private static final String TRUCK_URL = "/truck";
+    private static final String PACKAGE_URL = "/package";
+    private static final String PAYMENT_URL = "/pay";
+    private static final String SCENTER_URL = "/shippingCenter";
+    private static final String USER_URL = "/user";
+    private static final String MEMBER_URL = "/membership";
 
     // Attributes
     private final TemplateEngine templateEngine;
+    private final Connection user;
+    private final Connection useradd;
+    private final Connection tracking;
+    private final Connection employee;
     private final Gson gson;
 
-    public WebServer(TemplateEngine templateEngine, Gson gson) {
+    public WebServer(
+            TemplateEngine templateEngine,
+            Connection user,
+            Connection useradd,
+            Connection tracking,
+            Connection employee,
+            Gson gson) {
         this.templateEngine = templateEngine;
+        this.user = user;
+        this.useradd = useradd;
+        this.tracking = tracking;
+        this.employee = employee;
         this.gson = gson;
     }
 
@@ -44,17 +66,17 @@ public class WebServer {
         staticFileLocation("/public");
 
         // Declare route handlers //
-        get(HOME_URL, new GetHomeRoute(templateEngine));
-        get(LOGIN_URL, new GetLoginRoute(templateEngine));
-        post(LOGIN_URL, new PostLoginRoute(gson));
-        get(PACKAGES_URL, new GetPackagesRoute(templateEngine));
-        get(PROFILE_URL, new GetProfileRoute(templateEngine));
-        get(TRACKING_URL, new GetTrackingRoute(templateEngine));
-        get(SIGN_UP_URL, new GetSignupRoute(templateEngine));
-        post(SIGN_UP_URL, new PostSignupRoute(gson));
-        get(ADMIN_URL, new GetAdminRoute(templateEngine));
+        get(HOME_URL, new GetHomeRoute(templateEngine, user));
+        get(LOGIN_URL, new GetLoginRoute(templateEngine, user));
+        post(LOGIN_URL, new PostLoginRoute(gson, user));
+        get(PACKAGES_URL, new GetPackagesRoute(templateEngine, user));
+        get(PROFILE_URL, new GetProfileRoute(templateEngine, user));
+        get(TRACKING_URL, new GetTrackingRoute(templateEngine, tracking));
+        get(SIGN_UP_URL, new GetSignupRoute(templateEngine, user));
+        post(SIGN_UP_URL, new PostSignupRoute(gson, useradd));
+        get(ADMIN_URL, new GetAdminRoute(templateEngine, employee));
         get(LANDING_URL, new GetLandingRoute(templateEngine));
-        post(CREATE_URL, new PostCreateRoute(gson));
+        post(CREATE_URL, new PostCreateRoute(gson, user));
 
     }
 }

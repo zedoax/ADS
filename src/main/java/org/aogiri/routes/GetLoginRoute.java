@@ -2,6 +2,7 @@ package org.aogiri.routes;
 
 import spark.*;
 
+import java.sql.Connection;
 import java.util.HashMap;
 
 /**
@@ -15,14 +16,16 @@ public class GetLoginRoute implements Route {
 
     // Instance variables
     private final TemplateEngine templateEngine;
+    private final Connection conn;
 
     /**
      * Create the HTTP / GET Request Handle
      *
      * @param templateEngine - the HTML template rendering engine
      */
-    public GetLoginRoute(final TemplateEngine templateEngine) {
+    public GetLoginRoute(final TemplateEngine templateEngine, final Connection conn) {
         this.templateEngine = templateEngine;
+        this.conn = conn;
     }
 
     /**
@@ -39,7 +42,6 @@ public class GetLoginRoute implements Route {
 
         // Build the view-model
         HashMap<String, Object> vm = new HashMap<>();
-
         // What must be populated
         vm.put("title", TITLE);
 

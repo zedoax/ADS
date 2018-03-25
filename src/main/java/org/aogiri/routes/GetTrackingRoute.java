@@ -2,6 +2,7 @@ package org.aogiri.routes;
 
 import spark.*;
 
+import java.sql.Connection;
 import java.util.HashMap;
 
 /**
@@ -15,14 +16,16 @@ public class GetTrackingRoute implements Route {
 
     // Instance variables
     private final TemplateEngine templateEngine;
+    private final Connection conn;
 
     /**
      * Create the HTTP / GET Request Handle
      *
      * @param templateEngine - the HTML template rendering engine
      */
-    public GetTrackingRoute(final TemplateEngine templateEngine) {
+    public GetTrackingRoute(final TemplateEngine templateEngine, final Connection conn) {
         this.templateEngine = templateEngine;
+        this.conn = conn;
     }
 
     /**
@@ -42,6 +45,12 @@ public class GetTrackingRoute implements Route {
 
         // What must be populated
         vm.put("title", TITLE);
+
+         // vm.put("trackingid", "555555555555555555555555555");
+         // vm.put("status", "ondewey");
+
+//        vm.put("invalid", 1);
+//        vm.put("message", "Tracking information not found");
 
         // Render the view
         return templateEngine.render(new ModelAndView(vm, VIEW_NAME));
