@@ -31,12 +31,24 @@ public class WebServer {
 
     // Attributes
     private final TemplateEngine templateEngine;
-    private final Connection conn;
+    private final Connection user;
+    private final Connection useradd;
+    private final Connection tracking;
+    private final Connection employee;
     private final Gson gson;
 
-    public WebServer(TemplateEngine templateEngine, Connection conn, Gson gson) {
+    public WebServer(
+            TemplateEngine templateEngine,
+            Connection user,
+            Connection useradd,
+            Connection tracking,
+            Connection employee,
+            Gson gson) {
         this.templateEngine = templateEngine;
-        this.conn = conn;
+        this.user = user;
+        this.useradd = useradd;
+        this.tracking = tracking;
+        this.employee = employee;
         this.gson = gson;
     }
 
@@ -48,17 +60,17 @@ public class WebServer {
         staticFileLocation("/public");
 
         // Declare route handlers //
-        get(HOME_URL, new GetHomeRoute(templateEngine, conn));
-        get(LOGIN_URL, new GetLoginRoute(templateEngine, conn));
-        post(LOGIN_URL, new PostLoginRoute(gson, conn));
-        get(PACKAGES_URL, new GetPackagesRoute(templateEngine, conn));
-        get(PROFILE_URL, new GetProfileRoute(templateEngine, conn));
-        get(TRACKING_URL, new GetTrackingRoute(templateEngine, conn));
-        get(SIGN_UP_URL, new GetSignupRoute(templateEngine, conn));
-        post(SIGN_UP_URL, new PostSignupRoute(gson, conn));
-        get(ADMIN_URL, new GetAdminRoute(templateEngine, conn));
-        get(LANDING_URL, new GetLandingRoute(templateEngine, conn));
-        post(CREATE_URL, new PostCreateRoute(gson, conn));
+        get(HOME_URL, new GetHomeRoute(templateEngine, user));
+        get(LOGIN_URL, new GetLoginRoute(templateEngine, user));
+        post(LOGIN_URL, new PostLoginRoute(gson, user));
+        get(PACKAGES_URL, new GetPackagesRoute(templateEngine, user));
+        get(PROFILE_URL, new GetProfileRoute(templateEngine, user));
+        get(TRACKING_URL, new GetTrackingRoute(templateEngine, tracking));
+        get(SIGN_UP_URL, new GetSignupRoute(templateEngine, user));
+        post(SIGN_UP_URL, new PostSignupRoute(gson, useradd));
+        get(ADMIN_URL, new GetAdminRoute(templateEngine, employee));
+        get(LANDING_URL, new GetLandingRoute(templateEngine));
+        post(CREATE_URL, new PostCreateRoute(gson, user));
 
     }
 }
