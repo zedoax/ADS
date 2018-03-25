@@ -8,7 +8,10 @@ CREATE TABLE account (
 	address_number INT NOT NULL,
 	address_street VARCHAR(40) NOT NULL,
 	address_city VARCHAR(20) NOT NULL,
-	address_zipcode MEDIUMINT(5) UNSIGNED NOT NULL
+	address_zipcode MEDIUMINT(5) UNSIGNED NOT NULL,
+	profile_url varchar(100),
+	credit_card_number varchar(16),
+	credit_card_exp DATE
 );
 
 
@@ -25,10 +28,9 @@ CREATE TABLE non_contract_member(
 );
 
 CREATE TABLE payment(
-	username VARCHAR(20) REFERENCES account(username),
-	payment DECIMAL(20,2),
-	pay_date DATE NOT NULL);
-
+	payment DECIMAL(20,2) NOT NULL PRIMARY KEY,
+	pay_date DATE NOT NULL PRIMARY KEY,
+	member_id INT NOT NULL PRIMARY KEY);
 
 CREATE TABLE package_weight(
 	weight_class VARCHAR(20) NOT NULL PRIMARY KEY,
