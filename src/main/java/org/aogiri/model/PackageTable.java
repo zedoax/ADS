@@ -28,7 +28,7 @@ public class PackageTable {
                                      int tracking_id,
                                      String username){
 
-        String query = String.format("INSERT INTO non_contract_member "
+        String query = String.format("INSERT INTO package_db "
                                     + "VALUES(%d,\'%s\',\'%s\',%b,%d,\'%s\');",
                                     package_id, weight_class, package_type, hazardous, tracking_id, username);
         try {

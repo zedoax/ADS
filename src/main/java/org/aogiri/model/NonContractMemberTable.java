@@ -24,9 +24,9 @@ public class NonContractMemberTable{
         return true;
     }
 
-    public static boolean deleteContractMember(Connection conn,
+    public static boolean deleteNonContractMember(Connection conn,
                                                String username) {
-        String query = String.format("DELETE FROM test "
+        String query = String.format("DELETE FROM non_contract_member "
                         + "WHERE username=\'%s\';",
                 username);
         try {

@@ -26,7 +26,7 @@ public class ContractMemberTable {
                                             String username){
 
         String query = String.format("INSERT INTO contract_member "
-                                    + "VALUES(%d,\'%s\',%2f,\'%s\');",
+                                    + "VALUES(%d,%s,%2f,\'%s\');",
                                     id, cycle_start, cycle_bill, username);
         try {
             Statement stmt = conn.createStatement();
@@ -51,26 +51,38 @@ public class ContractMemberTable {
                                      float cycle_bill,
                                      String username){
         String query = String.format("INSERT INTO contract_member "
-                                    + "SELECT   non_contract_member.member_id, \'%s\' , %2f, \'%s\' "
+                                    + "SELECT   non_contract_member.member_id, %s, %2f, \'%s\' "
                                     + "FROM     non_contract_member "
                                     + "WHERE    non_contract_member.username=\'s\';",
                                     cycle_start, cycle_bill, username, username);
         try {
             Statement stmt = conn.createStatement();
             stmt.execute(query);
-            if(!NonContractMemberTable.deleteContractMember(conn, username)) return false;
+            if(!NonContractMemberTable.deleteNonContractMember(conn, username)) return false;
         } catch (SQLException e){
             return false;
         }
         return true;
     }
 
+    /**
+     * Switches user to regular contract
+     * @param conn
+     * @param username
+     * @return
+     */
     public static boolean deleteContractMember(Connection conn,
                                                String username) {
+        String whereClause = String.format("username=\'%s\'",username);
+
         String query = String.format("DELETE FROM contract_member "
                                     + "WHERE username=\'%s\';",
                                     username);
         try {
+            NonContractMemberTable.addNonContractMember(conn, queryContractMemberTable(conn,
+                    new ArrayList<String>(Arrays.asList("member_id")),
+                    new ArrayList<String>(Arrays.asList(whereClause))).getInt(1),
+                                                        username);
             Statement stmt = conn.createStatement();
             stmt.execute(query);
         } catch (SQLException e){
