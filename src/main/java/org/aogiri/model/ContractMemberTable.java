@@ -23,7 +23,7 @@ public class ContractMemberTable {
                                      float cycle_bill,
                                      String username){
 
-        String query = String.format("INSERT INTO account "
+        String query = String.format("INSERT INTO contract_member "
                                     + "VALUES(%d,\'%s\',%2f,\'%s\');",
                                     id, cycle_start, cycle_bill, username);
         try {
@@ -37,7 +37,7 @@ public class ContractMemberTable {
 
     public static boolean deleteContractMember(Connection conn,
                                                String username) {
-        String query = String.format("DELETE FROM test "
+        String query = String.format("DELETE FROM contract_member "
                                     + "WHERE username=\'%s\';",
                                     username);
         try {
