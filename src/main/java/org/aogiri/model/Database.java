@@ -7,6 +7,9 @@ import java.sql.Connection;
  */
 public class Database {
 
+    // Complex queries can live here. eg. All packages on x truck? All packages delivered x day? Total amount billed to each account?
+
+    /**
     public boolean createUser(Connection conn, String [] data) {
         return false;
     }
@@ -46,5 +49,6 @@ public class Database {
     public boolean logPackage(Connection conn, String [] data) {
         return false;
     }
+     **/
 
 }

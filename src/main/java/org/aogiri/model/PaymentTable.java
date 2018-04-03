@@ -33,20 +33,6 @@ public class PaymentTable {
         return true;
     }
 
-    public static boolean deleteContractMember(Connection conn,
-                                               String username) {
-        String query = String.format("DELETE FROM test "
-                        + "WHERE username=\'%s\';",
-                username);
-        try {
-            Statement stmt = conn.createStatement();
-            stmt.execute(query);
-        } catch (SQLException e){
-            return false;
-        }
-        return true;
-    }
-
     /**
      * See example code PersonTable file.
      * @param conn
@@ -54,14 +40,14 @@ public class PaymentTable {
      * @param whereClauses
      * @return
      */
-    public static ResultSet queryContractMemberTable(Connection conn,
+    public static ResultSet queryPaymentTable(Connection conn,
                                                      ArrayList<String> columns,
                                                      ArrayList<String> whereClauses){
         return null;
     }
 
     // Loosely prototyped, feel free to change
-    public static boolean updateAccount(Connection conn,
+    public static boolean updatePayment(Connection conn,
                                         String column,
                                         String newValue,
                                         ArrayList<String> whereClauses){

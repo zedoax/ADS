@@ -60,6 +60,11 @@ public class AccountTable {
         return null;
     }
 
+    public static boolean isContractMember(Connection conn,
+                                           String username){
+        return false;
+    }
+
     // Loosely prototyped, feel free to change
     public static boolean updateAccount(Connection conn,
                                         String column,

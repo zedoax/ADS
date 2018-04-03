@@ -67,11 +67,12 @@ public class ContractMemberTable {
 
     /**
      * Switches user to regular contract
+     * TODO: enforce that current bill is 0.00?
      * @param conn
      * @param username
      * @return
      */
-    public static boolean deleteContractMember(Connection conn,
+    public static boolean cancelContract(Connection conn,
                                                String username) {
         String whereClause = String.format("username=\'%s\'",username);
 
