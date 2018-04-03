@@ -6,6 +6,7 @@ import java.sql.Connection;
  * Created by Zedoax on 3/24/2018.
  */
 public class Database {
+
     public boolean createUser(Connection conn, String [] data) {
         return false;
     }
