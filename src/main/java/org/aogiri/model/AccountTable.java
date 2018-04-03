@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class AccountTable {
 
     /**
+     * TODO: automatically make new account a non-contract user
      * Adds a single user to the database
      * @param conn
      * @param username
