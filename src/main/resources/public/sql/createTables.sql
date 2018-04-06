@@ -79,5 +79,7 @@ CREATE TABLE package_db (
 
 CREATE TABLE location_log (
 	package_id INT REFERENCES package(package_id),
-	location_id INT REFERENCES station(location_id)
+	location_id INT REFERENCES station(location_id,
+	log_date DATE NOT NULL,
+	log_time TIME NOT NULL
 );
