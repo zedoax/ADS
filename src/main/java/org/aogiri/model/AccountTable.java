@@ -32,7 +32,10 @@ public class AccountTable {
                                      int address_number,
                                      String address_street,
                                      String address_city,
-                                     int address_zipcode){
+                                     int address_zipcode,
+                                     String profile_url,
+                                     String credit_card_number,
+                                     String credit_card_exp){
 
         String query = String.format("INSERT INTO account "
                                     + "VALUES(\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',%d,\'%s\',\'%s\',%d);",
