@@ -41,7 +41,19 @@ public class LocationTable {
     public static ResultSet queryLocationLogTable(Connection conn,
                                                      ArrayList<String> columns,
                                                      ArrayList<String> whereClauses){
-        return null;
+
+
+        String query = String.format("SELECT %s "
+                                    + "FROM location_log"
+                                    + "WHERE %s",
+                                    columns, whereClauses);
+
+        try {
+            Statement stmt = conn.createStatement();
+            return stmt.executeQuery(query);
+        } catch (SQLException e){
+            return null;
+        }
     }
 
     // Loosely prototyped, feel free to change
@@ -49,6 +61,18 @@ public class LocationTable {
                                         String column,
                                         String newValue,
                                         ArrayList<String> whereClauses){
-        return false;
+
+        String query = String.format("UPDATE location_log"
+                                    + "SET %s = "
+                                    + "WHERE %s ",
+                                    column, newValue, whereClauses);
+
+        try {
+            Statement stmt = conn.createStatement();
+            stmt.execute(query);
+        } catch (SQLException e){
+            return false;
+        }
+        return true;
     }
 }

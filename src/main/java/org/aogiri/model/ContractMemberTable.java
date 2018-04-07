@@ -102,7 +102,17 @@ public class ContractMemberTable {
     public static ResultSet queryContractMemberTable(Connection conn,
                                               ArrayList<String> columns,
                                               ArrayList<String> whereClauses){
-        return null;
+
+        String query = String.format("SELECT %s "
+                                    + "FROM contract_member"
+                                    + "WHERE %s", columns, whereClauses);
+
+        try {
+            Statement stmt = conn.createStatement();
+            return stmt.executeQuery(query);
+        } catch (SQLException e){
+            return null;
+        }
     }
 
     // Loosely prototyped, feel free to change
@@ -110,6 +120,17 @@ public class ContractMemberTable {
                                         String column,
                                         String newValue,
                                         ArrayList<String> whereClauses){
-        return false;
+
+        String query = String.format("UPDATE contract_member "
+                                    + "SET %s = "
+                                    + "WHERE %s ",
+                                    column, newValue, whereClauses);
+        try {
+            Statement stmt = conn.createStatement();
+            stmt.execute(query);
+        } catch (SQLException e){
+            return false;
+        }
+        return true;
     }
 }
