@@ -26,7 +26,7 @@ public class ContractMemberTable {
                                             String username){
 
         String query = String.format("INSERT INTO contract_member "
-                                    + "VALUES(%d,%s,%2f,\'%s\');",
+                                    + "VALUES(%d,\'%s\',%2f,\'%s\');",
                                     id, cycle_start, cycle_bill, username);
         try {
             Statement stmt = conn.createStatement();
@@ -51,7 +51,7 @@ public class ContractMemberTable {
                                      float cycle_bill,
                                      String username){
         String query = String.format("INSERT INTO contract_member "
-                                    + "SELECT   non_contract_member.member_id, %s, %2f, \'%s\' "
+                                    + "SELECT   non_contract_member.member_id, \'%s\', %2f, \'%s\' "
                                     + "FROM     non_contract_member "
                                     + "WHERE    non_contract_member.username=\'s\';",
                                     cycle_start, cycle_bill, username, username);

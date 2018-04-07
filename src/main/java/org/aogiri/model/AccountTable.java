@@ -39,7 +39,7 @@ public class AccountTable {
                                      String credit_card_exp){
 
         String query = String.format("INSERT INTO account "
-                                    + "VALUES(\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',%d,\'%s\',\'%s\',%d);",
+                                    + "VALUES(\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',%d,\'%s\',\'%s\',%d,\'%s\',int,\'%s\');",
                                     username, password, session_token, first_name, last_name, address_number,
                                     address_street, address_city, address_zipcode);
         try {

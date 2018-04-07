@@ -22,7 +22,7 @@ public class PaymentTable {
                                                int member_id){
 
         String query = String.format("INSERT INTO payment "
-                                    + "VALUES(%.2f,%s,%d);",
+                                    + "VALUES(%.2f,\'%s\',%d);",
                                     payment, date, member_id);
         try {
             Statement stmt = conn.createStatement();
