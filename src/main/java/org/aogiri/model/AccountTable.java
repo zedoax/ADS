@@ -1,5 +1,6 @@
 package org.aogiri.model;
 
+import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -60,12 +61,45 @@ public class AccountTable {
     public static ResultSet queryAccountTable(Connection conn,
                                               ArrayList<String> columns,
                                               ArrayList<String> whereClauses){
-        return null;
+
+        String query = String.format("SELECT %s ", columns.get(0));
+        for(int i = 1; i < columns.size(); i ++){
+            query += String.format(", %s ", columns.get(i));
+        }
+
+        query += String.format("FROM account"
+                                + "WHERE %s", whereClauses.get(0));
+        for(int i = 1; i < whereClauses.size(); i ++){
+            query += String.format(" and %s", whereClauses.get(i));
+        }
+        query += String.format(";");
+
+        try {
+            Statement stmt = conn.createStatement();
+            return stmt.executeQuery(query);
+        } catch (SQLException e){
+            return null;
+        }
     }
 
     public static boolean isContractMember(Connection conn,
                                            String username){
-        return false;
+
+        String query = String.format("SELECT * "
+                                    + "FROM contract_member "
+                                    + "WHERE username = %s;",
+                                    username);
+
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet result = stmt.executeQuery(query);
+            if(!result.isBeforeFirst()) {
+                return false;
+            }
+        } catch (SQLException e){
+            return false;
+        }
+        return true;
     }
 
     // Loosely prototyped, feel free to change
@@ -73,6 +107,23 @@ public class AccountTable {
                                         String column,
                                         String newValue,
                                         ArrayList<String> whereClauses){
-        return false;
+
+        String query = String.format("UPDATE account"
+                                    + "SET %s = %s "
+                                    + "WHERE %s ",
+                                    column, newValue, whereClauses.get(0));
+
+        for(int i = 1; i < whereClauses.size(); i ++){
+            query += String.format(" and %s", whereClauses.get(i));
+        }
+        query += String.format(";");
+
+        try {
+            Statement stmt = conn.createStatement();
+            stmt.execute(query);
+        } catch (SQLException e){
+            return false;
+        }
+        return true;
     }
 }
