@@ -38,10 +38,16 @@ public class StationTable {
                                               ArrayList<String> columns,
                                               ArrayList<String> whereClauses){
 
-        String query = String.format("SELECT %s "
-                        + "FROM station "
-                        + "WHERE %s",
-                columns, whereClauses);
+        String query = String.format("SELECT %s ", columns.get(0));
+        for(int i = 1; i < columns.size(); i ++){
+            query += String.format(", %s ", columns.get(i));
+        }
+
+        query += String.format("FROM station "
+                                + "WHERE %s", whereClauses.get(0));
+        for(int i = 1; i < whereClauses.size(); i ++){
+            query += String.format("and %s ", whereClauses.get(i));
+        }
 
         try {
             Statement stmt = conn.createStatement();
@@ -58,9 +64,15 @@ public class StationTable {
                                         ArrayList<String> whereClauses){
 
         String query = String.format("UPDATE station "
-                                    + "SET %s = "
-                                    + "WHERE %s ",
-                                    column, newValue, whereClauses);
+                                    + "SET %s = %s "
+                                    + "WHERE %s",
+                                    column, newValue, whereClauses.get(0));
+
+        for(int i = 1; i < whereClauses.size(); i ++){
+            query += String.format(" and %s", whereClauses.get(i));
+        }
+        query += String.format(";");
+
         try {
             Statement stmt = conn.createStatement();
             stmt.execute(query);

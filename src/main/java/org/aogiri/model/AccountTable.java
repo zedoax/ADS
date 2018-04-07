@@ -59,9 +59,17 @@ public class AccountTable {
                                               ArrayList<String> columns,
                                               ArrayList<String> whereClauses){
 
-        String query = String.format("SELECT %s "
-                                    + "FROM account"
-                                    + "WHERE %s", columns, whereClauses);
+        String query = String.format("SELECT %s ", columns.get(0));
+        for(int i = 1; i < columns.size(); i ++){
+            query += String.format(", %s ", columns.get(i));
+        }
+
+        query += String.format("FROM account"
+                                + "WHERE %s", whereClauses.get(0));
+        for(int i = 1; i < whereClauses.size(); i ++){
+            query += String.format(" and %s", whereClauses.get(i));
+        }
+        query += String.format(";");
 
         try {
             Statement stmt = conn.createStatement();
@@ -74,9 +82,9 @@ public class AccountTable {
     public static boolean isContractMember(Connection conn,
                                            String username){
 
-        String query = String.format("SELECT *"
-                                    + "FROM contract_member"
-                                    + "WHERE username = %s ",
+        String query = String.format("SELECT * "
+                                    + "FROM contract_member "
+                                    + "WHERE username = %s;",
                                     username);
 
         try {
@@ -98,9 +106,15 @@ public class AccountTable {
                                         ArrayList<String> whereClauses){
 
         String query = String.format("UPDATE account"
-                                    + "SET %s = "
+                                    + "SET %s = %s "
                                     + "WHERE %s ",
-                                    column, newValue, whereClauses);
+                                    column, newValue, whereClauses.get(0));
+
+        for(int i = 1; i < whereClauses.size(); i ++){
+            query += String.format(" and %s", whereClauses.get(i));
+        }
+        query += String.format(";");
+
         try {
             Statement stmt = conn.createStatement();
             stmt.execute(query);
