@@ -28,12 +28,11 @@ public class WebServer {
     private static final String LANDING_URL = "/landing";
     private static final String CREATE_URL = "/create";
     private static final String LOGOUT_URL = "/logout";
-    private static final String TRUCK_URL = "/truck";
     private static final String PACKAGE_URL = "/package";
     private static final String PAYMENT_URL = "/pay";
-    private static final String SCENTER_URL = "/shippingCenter";
     private static final String USER_URL = "/user";
     private static final String MEMBER_URL = "/membership";
+    private static final String STATS_URL = "/admin/stats";
 
     // Attributes
     private final TemplateEngine templateEngine;
@@ -75,6 +74,7 @@ public class WebServer {
         get(SIGN_UP_URL, new GetSignupRoute(templateEngine, user));
         post(SIGN_UP_URL, new PostSignupRoute(gson, useradd));
         get(ADMIN_URL, new GetAdminRoute(templateEngine, employee));
+        get(STATS_URL, new GetStatsRoute(templateEngine, employee));
         get(LANDING_URL, new GetLandingRoute(templateEngine));
         post(CREATE_URL, new PostCreateRoute(gson, user));
 

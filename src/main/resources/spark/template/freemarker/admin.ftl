@@ -136,10 +136,10 @@
             </div>
             <div class="card col-12 mb-3 p-3">
                 <div class="card-content">
+                    <div class="card-header bg-dark text-light">
+                        Station Database
+                    </div>
                     <div class="row">
-                        <div class="card-header bg-dark text-light">
-                            Station Database
-                        </div>
                         <table class="table table-bordered table-striped text-center">
                             <thead>
                             <tr>
@@ -219,6 +219,7 @@
                             <form>
                                 <th>
                                     <select class="custom-select" id="location" name="location">
+                                        <option disabled hidden selected>${package.location}</option>
                                         <#list vehicles as vehicle>
                                         <option value="${vehicle.id}">${vehicle.id}</option>
                                         </#list>

@@ -8,9 +8,19 @@ public class Vehicle {
     private String type;
 
     private String origin;
+    private String location;
+    private String destination;
 
     public String getId() {
         return id;
+    }
+
+    public Vehicle(String id, String type, String origin, String location, String destination) {
+        this.id = id;
+        this.type = type;
+        this.origin = origin;
+        this.location = location;
+        this.destination = destination;
     }
 
     public String getType() {
@@ -29,16 +39,6 @@ public class Vehicle {
         return destination;
     }
 
-    private String location;
-    private String destination;
-
-    public Vehicle(String id, String type, String origin, String location, String destination) {
-        this.id = id;
-        this.type = type;
-        this.origin = origin;
-        this.location = location;
-        this.destination = destination;
-    }
 
 
 }
