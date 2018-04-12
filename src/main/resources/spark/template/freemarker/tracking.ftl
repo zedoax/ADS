@@ -34,11 +34,11 @@
 
         <!-- Page Content -->
         <div class="container mt-3">
-            <#if trackingid??>
+            <#if package??>
                 <div class="card p-5 mb-3">
                     <div class="card-content">
                         <div class="row">
-                            <#if status=="delivered">
+                            <#if package.status=="delivered">
                                 <div class="col-4">
                                     <i class="fa fa-check-circle fa-10x text-success"></i>
                                 </div>
@@ -47,7 +47,31 @@
                                         <h1>Delivered</h1>
                                     </div>
                                     <div class="row">
-                                        <h5>ADDRESS</h5>
+                                        <h5>${package.destination}</h5>
+                                    </div>
+                                </div>
+                            <#elseif package.status=="late">
+                                <div class="col-4">
+                                    <i class="fa fa-check-circle fa-10x text-success"></i>
+                                </div>
+                                <div class="col-8">
+                                    <div class="row">
+                                        <h1>Late</h1>
+                                    </div>
+                                    <div class="row">
+                                        <h5>${package.destination}</h5>
+                                    </div>
+                                </div>
+                            <#elseif package.status=="lost">
+                                <div class="col-4">
+                                    <i class="fa fa-check-circle fa-10x text-success"></i>
+                                </div>
+                                <div class="col-8">
+                                    <div class="row">
+                                        <h1>Sorry, it appears we have lost your package</h1>
+                                    </div>
+                                    <div class="row">
+                                        <h5>${package.destination}</h5>
                                     </div>
                                 </div>
                             <#else>
@@ -59,7 +83,7 @@
                                         <h1>On it's way</h1>
                                     </div>
                                     <div class="row">
-                                        <h5>ADDRESS</h5>
+                                        <h5>${package.location}</h5>
                                     </div>
                                 </div>
                             </#if>
@@ -75,28 +99,32 @@
                         <table class="table table-bordered table-striped text-center">
                             <thead>
                                 <tr>
+                                    <th>Date</th>
                                     <th>Vehicle</th>
                                     <th>Location</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                <#list tracking as entry>
                                 <tr>
-                                    <th>Truck</th>
-                                    <th>EXAMPLE ADDRESS</th>
+                                    <th>${entry.date}</th>
+                                    <th>${entry.vehicle_type}</th>
+                                    <th>${entry.location}</th>
                                 </tr>
+                                </#list>
                             </tbody>
                         </table>
                     </div>
                 </div>
             <#else>
                 <div class="card p-2 mb-3">
-                    <form>
+                    <form name="tracking_form" method="get" action="/tracking">
                         <div class="form-group">
                             <label class="sr-only" for="tracking">Input Tracking Number</label>
                             <#if invalid??>
-                                <input type="number" class="form-control is-invalid" id="tracking" placeholder="Tracking Identification" required>
+                                <input type="number" class="form-control is-invalid" id="tracking" name="id" placeholder="Tracking Identification" required>
                             <#else>
-                                <input type="number" class="form-control" id="tracking" placeholder="Tracking Identification" required>
+                                <input type="number" class="form-control" id="tracking" name="id" placeholder="Tracking Identification" required>
                             </#if>
                             <div class="invalid-feedback">
                                 <#if message??>

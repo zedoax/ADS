@@ -54,30 +54,38 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <#list vehicles as vehicle>
                             <tr>
                                 <th>
-                                    1234567890
+                                    ${vehicle.id}
                                 </th>
                                 <th>
-                                    <p>Truck</p>
+                                    <p>${vehicle.type}</p>
                                 </th>
                                 <form>
                                     <th>
-                                        <select class="custom-select" id="location">
-                                            <option value="SAMPLE LOCATION">Sample Location</option>
-                                            <option value="SAMPLE LOCATION 2">Sample Location 2</option>
+                                        <input type="text" disabled="disabled" name="vehicle.id" value="${vehicle.id}" hidden>
+                                        <select class="custom-select" id="origin" name="origin">
+                                            <option selected disabled hidden>${vehicle.origin}</option>
+                                            <#list stations as station>
+                                            <option value="${station.location}">${station.location}</option>
+                                            </#list>
                                         </select>
                                     </th>
                                     <th>
-                                        <select class="custom-select" id="location">
-                                            <option value="SAMPLE LOCATION">Sample Location</option>
-                                            <option value="SAMPLE LOCATION 2">Sample Location 2</option>
+                                        <select class="custom-select" id="location" name="location">
+                                            <option selected disabled hidden>${vehicle.location}</option>
+                                            <#list stations as station>
+                                            <option value="${station.location}">${station.location}</option>
+                                            </#list>
                                         </select>
                                     </th>
                                     <th>
-                                        <select class="custom-select" id="destination">
-                                            <option value="SAMPLE LOCATION">Sample Location</option>
-                                            <option value="SAMPLE LOCATION 2">Sample Location 2</option>
+                                        <select class="custom-select" id="destination" name="destination">
+                                            <option selected disabled hidden>${vehicle.destination}</option>
+                                            <#list stations as station>
+                                            <option value="${station.location}">${station.location}</option>
+                                            </#list>
                                         </select>
                                     </th>
                                     <th>
@@ -85,32 +93,36 @@
                                     </th>
                                 </form>
                             </tr>
+                            </#list>
                             <tr>
                                 <th></th>
-                                <form>
+                                <form name="create_vehicle">
                                     <th>
-                                        <select class="custom-select" id="type">
-                                            <option value="truck">Truck</option>
-                                            <option value="plane">Plane</option>
-                                            <option value="freight">Freight</option>
+                                        <select class="custom-select" id="type" name="type">
+                                            <option value="truck">truck</option>
+                                            <option value="truck">plane</option>
+                                            <option value="truck">ship</option>
                                         </select>
                                     </th>
                                     <th>
-                                        <select class="custom-select" id="location">
-                                            <option value="SAMPLE LOCATION">Sample Location</option>
-                                            <option value="SAMPLE LOCATION 2">Sample Location 2</option>
+                                        <select class="custom-select" id="origin" name="origin">
+                                        <#list stations as station>
+                                            <option value="${station.location}">${station.location}</option>
+                                        </#list>
                                         </select>
                                     </th>
                                     <th>
-                                        <select class="custom-select" id="location">
-                                            <option value="SAMPLE LOCATION">Sample Location</option>
-                                            <option value="SAMPLE LOCATION 2">Sample Location 2</option>
+                                        <select class="custom-select" id="location" name="location">
+                                        <#list stations as station>
+                                            <option value="${station.location}">${station.location}</option>
+                                        </#list>
                                         </select>
                                     </th>
                                     <th>
-                                        <select class="custom-select" id="destination">
-                                            <option value="SAMPLE LOCATION">Sample Location</option>
-                                            <option value="SAMPLE LOCATION 2">Sample Location 2</option>
+                                        <select class="custom-select" id="destination" name="destination">
+                                        <#list stations as station>
+                                            <option value="${station.location}">${station.location}</option>
+                                        </#list>
                                         </select>
                                     </th>
                                     <th>
@@ -124,6 +136,31 @@
             </div>
             <div class="card col-12 mb-3 p-3">
                 <div class="card-content">
+                    <div class="row">
+                        <div class="card-header bg-dark text-light">
+                            Station Database
+                        </div>
+                        <table class="table table-bordered table-striped text-center">
+                            <thead>
+                            <tr>
+                                <th>Station ID</th>
+                                <th>Location</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <#list stations as station>
+                            <tr>
+                                <th>
+                                ${station.id}
+                                </th>
+                                <th>
+                                ${station.location}
+                                </th>
+                            </tr>
+                            </#list>
+                            </tbody>
+                        </table>
+                    </div>
                     <form class="row">
                         <div class="col-5">
                             <label for="saddr">Street Address</label>
@@ -162,37 +199,40 @@
                             <th>Tracking Number</th>
                             <th>Owner</th>
                             <th>Origin</th>
-                            <th>Current Location</th>
+                            <th>Current Vechicle</th>
                             <th>Destination</th>
                             <th>Update</th>
                         </tr>
                         </thead>
                         <tbody>
+                        <#list packages as package>
                         <tr>
                             <th>
-                                <p>00000000000000000000000000000</p>
+                                <p>${package.id}</p>
                             </th>
                             <th>
-                                <p>Elijah</p>
+                                <p>${package.owner}</p>
                             </th>
                             <th>
-                                ORIGIN ADDRESS
+                                ${package.origin}
                             </th>
                             <form>
                                 <th>
-                                    <select class="custom-select" id="location">
-                                        <option value="SAMPLE LOCATION">Sample Location</option>
-                                        <option value="SAMPLE LOCATION 2">Sample Location 2</option>
+                                    <select class="custom-select" id="location" name="location">
+                                        <#list vehicles as vehicle>
+                                        <option value="${vehicle.id}">${vehicle.id}</option>
+                                        </#list>
                                     </select>
                                 </th>
                                 <th>
-                                    DESTINATION ADDRESS
+                                    ${package.destination}
                                 </th>
                                 <th>
                                     <button type="submit" class="btn btn-primary">Update</button>
                                 </th>
                             </form>
                         </tr>
+                        </#list>
                         </tbody>
                     </table>
                 </div>
@@ -216,15 +256,17 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <#list users as user>
                             <tr>
-                                <th>Zedoax</th>
-                                <th>Elijah</th>
-                                <th>Bendinsky</th>
-                                <th>EXAMPLE ADDRESS</th>
-                                <th>XXXX-XXXX-XXXX-XXXX exp.01/2020</th>
+                                <th>${user.username}</th>
+                                <th>${user.firstname}</th>
+                                <th>${user.lastname}</th>
+                                <th>${user.address}</th>
+                                <th>${user.credit}</th>
                                 <form>
                                     <th>
                                         <select class="custom-select" name="membership">
+                                            <option selected disabled hidden>${user.membership}</option>
                                             <option value="default">Default</option>
                                             <option value="contract">Contract</option>
                                         </select>
@@ -234,6 +276,7 @@
                                     </th>
                                 </form>
                             </tr>
+                            </#list>
                         </tbody>
                     </table>
                 </div>

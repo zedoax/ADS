@@ -1,9 +1,13 @@
 package org.aogiri.routes;
 
+import org.aogiri.objects.Package;
+import org.aogiri.objects.TrackingEntry;
 import spark.*;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Zedoax on 1/26/2018
@@ -40,17 +44,32 @@ public class GetTrackingRoute implements Route {
         // Retrieve the Session objects
         Session session = request.session();
 
+        String id = request.queryParams("id");
+        Package pkg = null;
+        List<TrackingEntry> tracking = new ArrayList<>();
+
+        if(id != null) {
+            // TODO; Try to get actual package
+            pkg = new Package(id, "test", "tid", "sample", "sample3", "sample2", "2", "ondewey");
+
+            // TODO; Get package history
+            tracking.add(new TrackingEntry("01/01/18","truck", "sample"));
+        }
+
         // Build the view-model
         HashMap<String, Object> vm = new HashMap<>();
 
         // What must be populated
         vm.put("title", TITLE);
 
-         // vm.put("trackingid", "555555555555555555555555555");
-         // vm.put("status", "ondewey");
-
-//        vm.put("invalid", 1);
-//        vm.put("message", "Tracking information not found");
+        if(pkg != null) {
+            vm.put("package", pkg);
+            vm.put("tracking", tracking);
+        }
+        else {
+            vm.put("invalid", 1);
+            vm.put("message", "Tracking information not found");
+        }
 
         // Render the view
         return templateEngine.render(new ModelAndView(vm, VIEW_NAME));

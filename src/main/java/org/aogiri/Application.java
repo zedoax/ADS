@@ -1,9 +1,17 @@
 package org.aogiri;
 
 import com.google.gson.Gson;
+import org.h2.command.dml.RunScriptCommand;
+import org.h2.tools.RunScript;
 import spark.TemplateEngine;
 import spark.template.freemarker.FreeMarkerEngine;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -32,7 +40,7 @@ public class Application {
             try {
 
                 //This needs to be on the front of your location
-                String url = "jdbc:h2:" + location;
+                String url = "jdbc:h2:mem:" + location;
 
                 //This tells it to use the h2 driver
                 Class.forName("org.h2.Driver");
@@ -69,13 +77,16 @@ public class Application {
             // Freemarker templates to generate HTML responses sent to client
             final TemplateEngine templateEngine = new FreeMarkerEngine();
 
-            String location = "~/ads/ads";
+            String url = "./data/ads";
+            String cargs =  ";INIT=create schema if not exists ads\\;runscript from '" +
+                    "classpath:public/sql/createTables.sql'\\;runscript from '" +
+                    "classpath:public/sql/users/user_creation.sql'";
 
             // H2 Database connection
-            Connection user = createConnection(location, System.getenv("USER_USERNAME"), System.getenv("USER_PASSWORD"));
-            Connection useradd = createConnection(location, System.getenv("USERADD_USERNAME"), System.getenv("USERADD_PASSWORD"));
-            Connection tracking = createConnection(location, System.getenv("TRACKING_USERNAME"), "TRACKING_PASSWORD");
-            Connection employee = createConnection(location, System.getenv("EMPLOYEE_USERNAME"), System.getenv("EMPLOYEE_PASSWORD"));
+            Connection user = createConnection(url, System.getenv("MEMBER_USERNAME"), System.getenv("MEMBER_PASSWORD"));
+            Connection useradd = createConnection(url, System.getenv("MEMBERADD_USERNAME"), System.getenv("MEMBERADD_PASSWORD"));
+            Connection tracking = createConnection(url, System.getenv("TRACKING_USERNAME"), System.getenv("TRACKING_PASSWORD"));
+            Connection employee = createConnection(url, System.getenv("EMPLOYEE_USERNAME"), System.getenv("EMPLOYEE_PASSWORD"));
 
             // Check for errors in H2 initialization
             if(user == null || tracking == null || employee == null) {
@@ -89,6 +100,7 @@ public class Application {
                 public void run() {
                     try {
                         user.close();
+                        useradd.close();
                         tracking.close();
                         employee.close();
                     } catch (SQLException e) {
