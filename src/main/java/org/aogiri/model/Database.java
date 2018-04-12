@@ -56,6 +56,6 @@ public class Database {
      * Goes off after a vehicles location updates, all packages on truck update
      */
     public static void createVPTrigger(){
-        return true;
+
     }
 }
