@@ -77,12 +77,14 @@ public class Application {
             // Freemarker templates to generate HTML responses sent to client
             final TemplateEngine templateEngine = new FreeMarkerEngine();
 
-            String url = "./data/ads";
+            // H2 Connection location and setup
+            String url = "./ads";
             String cargs =  ";INIT=create schema if not exists ads\\;runscript from '" +
                     "classpath:public/sql/createTables.sql'\\;runscript from '" +
                     "classpath:public/sql/users/user_creation.sql'";
 
             // H2 Database connection
+            Connection setup = createConnection(url + cargs, "root", "password");
             Connection user = createConnection(url, System.getenv("MEMBER_USERNAME"), System.getenv("MEMBER_PASSWORD"));
             Connection useradd = createConnection(url, System.getenv("MEMBERADD_USERNAME"), System.getenv("MEMBERADD_PASSWORD"));
             Connection tracking = createConnection(url, System.getenv("TRACKING_USERNAME"), System.getenv("TRACKING_PASSWORD"));
@@ -98,14 +100,10 @@ public class Application {
             Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    try {
-                        user.close();
-                        useradd.close();
-                        tracking.close();
-                        employee.close();
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
+                    closeConnection(user);
+                    closeConnection(useradd);
+                    closeConnection(tracking);
+                    closeConnection(employee);
                 }
             }));
 
