@@ -54,7 +54,8 @@ CREATE TABLE vehicle(
 	vehicle_id INT NOT NULL PRIMARY KEY,
 	vehicle_type VARCHAR(10) NOT NULL,
 	origin_id INT REFERENCES station(location_id),
-	destination_id INT REFERENCES station(location_id)
+	destination_id INT REFERENCES station(location_id),
+	station_id INT REFERENCES(station)
 );
 
 CREATE TABLE tracking_db (
@@ -80,5 +81,7 @@ CREATE TABLE package_db (
 CREATE TABLE location_log (
 	package_id INT REFERENCES package_db(package_id),
 	location_id INT REFERENCES station(location_id),
+	time TIME,
+	date DATE,
 	tracking_id INT REFERENCES tracking_db(tracking_id)
 );

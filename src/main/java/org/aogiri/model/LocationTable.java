@@ -13,15 +13,21 @@ public class LocationTable {
      * @param conn
      * @param packageID
      * @param locationID
+     * @param time
+     * @param date
+     * @param trackingID
      * @return
      */
     public static boolean addLogEntry(Connection conn,
                                       int packageID,
-                                      int locationID){
+                                      int locationID,
+                                      String time,
+                                      String date,
+                                      int trackingID){
 
         String query = String.format("INSERT INTO location_log "
-                                    + "VALUES(%d,%d);",
-                                    packageID,locationID);
+                                    + "VALUES(%d,%d,\'%s\',\'%s\',%d);",
+                                    packageID,locationID,time,date,trackingID);
         try {
             Statement stmt = conn.createStatement();
             stmt.execute(query);

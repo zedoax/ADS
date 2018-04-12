@@ -55,14 +55,7 @@ public class Database {
      * Creates a trigger
      * Goes off after a vehicles location updates, all packages on truck update
      */
-    public static boolean createVPTrigger(){
-        String query = "CREATE TRIGGER AFTER UPDATE OF vehicle ON origin_id "
-                        + "FOR EACH ROW "
-                        + "BEGIN "
-                        + "UPDATE location_log log "
-                        + "SET log.location_id = vehicle.origin_id "
-                        + "WHERE log.package_id"
-
-
+    public static void createVPTrigger(){
+        return true;
     }
 }

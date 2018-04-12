@@ -11,11 +11,12 @@ public class VehicleTable{
                                      int vehicle_id,
                                      String vehicle_type,
                                      int origin_id,
-                                     int destination_id){
+                                     int destination_id,
+                                     int station_id){
 
         String query = String.format("INSERT INTO vehicle "
-                                    + "VALUES(%d, \'%s\', %d, %d);",
-                                    vehicle_id, vehicle_type, origin_id, destination_id);
+                                    + "VALUES(%d, \'%s\', %d, %d, %d);",
+                                    vehicle_id, vehicle_type, origin_id, destination_id,station_id);
         try {
             Statement stmt = conn.createStatement();
             stmt.execute(query);
