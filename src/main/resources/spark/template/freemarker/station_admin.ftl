@@ -39,34 +39,22 @@
     <div class="card col-12 mb-3 p-3">
         <div class="card-content">
             <div class="card-header bg-dark text-light">
-                Vehicle
+                Station
             </div>
             <table class="table table-bordered table-striped text-center">
                 <thead>
                 <tr>
-                    <th>Vehicle ID</th>
-                    <th>Type</th>
-                    <th>Origin</th>
+                    <th>Station ID</th>
                     <th>Location</th>
-                    <th>Destination</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
                     <th>
-                    ${vehicle.id}
+                    ${station.id}
                     </th>
                     <th>
-                    ${vehicle.type}
-                    </th>
-                    <th>
-                     ${vehicle.origin}
-                    </th>
-                    <th>
-                    ${vehicle.location}
-                    </th>
-                    <th>
-                    ${vehicle.destination}
+                    ${station.location}
                     </th>
                 </tr>
                 </tbody>
@@ -76,55 +64,36 @@
     <div class="card col-12 mb-3 p-3">
         <div class="card-content">
             <div class="card-header bg-dark text-light">
-                Current Packages
+                Vehicles
             </div>
+
             <table class="table table-bordered table-striped text-center">
                 <thead>
                 <tr>
-                    <th>Tracking Number</th>
-                    <th>Owner</th>
+                    <th>Vehicle ID</th>
+                    <th>Vehicle Type</th>
                     <th>Origin</th>
-                    <th>Current Vechicle</th>
+                    <th>Current Location</th>
                     <th>Destination</th>
-                    <th>Hazardous</th>
-                    <th>International</th>
-                    <th>Cost</th>
                 </tr>
                 </thead>
                 <tbody>
-                <#list current as package>
+                <#list vehicles as vehicle>
                 <tr>
                     <th>
-                        <a href="/admin?tracking=${package.id}">${package.id}</a>
+                        <a href="/admin?vehicle=${vehicle.id}">${vehicle.id}</a>
                     </th>
                     <th>
-                        <p>${package.owner}</p>
+                        <p>${vehicle.type}</p>
                     </th>
                     <th>
-                    ${package.origin}
+                    ${vehicle.origin}
                     </th>
                     <th>
-                    ${package.location}
+                    ${vehicle.location}
                     </th>
                     <th>
-                    ${package.destination}
-                    </th>
-                    <th>
-                        <#if package.hazardous>
-                            yes
-                        <#else>
-                            no
-                        </#if>
-                    </th>
-                    <th>
-                    <#if package.international>
-                        yes
-                    <#else>
-                        no
-                    </#if>
-                    </th>
-                    <th>
-                    ${package.price}
+                    ${vehicle.destination}
                     </th>
                 </tr>
                 </#list>
@@ -135,7 +104,7 @@
     <div class="card col-12 mb-3 p-3">
         <div class="card-content">
             <div class="card-header bg-dark text-light">
-                Delivered Packages
+                Packages
             </div>
             <table class="table table-bordered table-striped text-center">
                 <thead>
@@ -151,7 +120,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <#list delivered as package>
+                <#list packages as package>
                 <tr>
                     <th>
                         <a href="/admin?tracking=${package.id}">${package.id}</a>

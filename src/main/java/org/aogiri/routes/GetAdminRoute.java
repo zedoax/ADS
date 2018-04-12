@@ -19,6 +19,7 @@ public class GetAdminRoute implements Route {
     public static final String VIEW_NAME = "admin.ftl";
     public static final String PKG_VIEW_NAME = "pkg_admin.ftl";
     public static final String VEHICLE_VIEW_NAME = "vehicle_admin.ftl";
+    public static final String STATION_VIEW_NAME = "station_admin.ftl";
     public static final String TITLE = "Amazan | Admin";
 
     // Instance variables
@@ -49,6 +50,7 @@ public class GetAdminRoute implements Route {
 
         String pkg = request.queryParams("tracking");
         String vehicle = request.queryParams("vehicle");
+        String station = request.queryParams("station");
 
         if(pkg != null) {
             // Build the view-model
@@ -79,6 +81,23 @@ public class GetAdminRoute implements Route {
             vm.put("delivered", delivered);
 
             return templateEngine.render(new ModelAndView(vm, VEHICLE_VIEW_NAME));
+        }
+
+        if(station != null) {
+            // Build the view-model
+            HashMap<String, Object> vm = new HashMap<>();
+
+            // What must be populated
+            vm.put("title", TITLE);
+            vm.put("station", new Station(station, "location"));
+            List<Vehicle> vehicles = new ArrayList<>();
+            vehicles.add(new Vehicle("a", "a", "a", "a", "a"));
+            vm.put("vehicles", vehicles);
+            List<Package> packages = new ArrayList<>();
+            packages.add(new Package("a","a","a","a","a","a","a","a",  true, true,"a","a", ((float)3.00)));
+            vm.put("packages", packages);
+
+            return templateEngine.render(new ModelAndView(vm, STATION_VIEW_NAME));
         }
 
         // Build the view-model

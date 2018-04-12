@@ -29,7 +29,7 @@
             <a class="nav-link disabled" href="../tracking">Tracking</a>
         </li>
         <li class="nav-item active">
-            <a class="nav-link" href="#">Admin <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="../admin">Admin <span class="sr-only">(current)</span></a>
         </li>
     </ul>
 </nav>
