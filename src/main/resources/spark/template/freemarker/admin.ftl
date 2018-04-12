@@ -19,17 +19,20 @@
                 <li class="nav-item active">
                     <a  class="nav-link" href="../">Home</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" aria-disabled="true">
                     <a class="nav-link disabled" href="../packages">Packages</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" aria-disabled="true">
                     <a class="nav-link disabled" href="../profile">Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled" href="../tracking">Tracking</a>
+                    <a class="nav-link" href="../tracking">Tracking</a>
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item active" aria-disabled="true">
                     <a class="nav-link" href="#">Admin <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./stats">Stats</a>
                 </li>
             </ul>
         </nav>
