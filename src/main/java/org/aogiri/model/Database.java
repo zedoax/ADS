@@ -223,12 +223,12 @@ public class Database {
         }
     }
 
-
+/*
     /**
      * Creates a Trigger that runs after a vehicle destination is updated.
      *  Updates the origin with the current location
      */
-    public static boolean originTrigger(Connection conn){
+/*    public static boolean originTrigger(Connection conn){
         ResultSet result = getPackageTrackingInfo(conn, "*");
 
         String trigger = "create trigger originTrigger after update of vehicle on destination_id "
@@ -245,6 +245,6 @@ public class Database {
         } catch (SQLException e){
             return false;
         }
-    }
+    }*/
 
 }
