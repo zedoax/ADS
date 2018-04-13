@@ -65,6 +65,38 @@ public class Database {
     }
 
     /**
+     * Gets user who owns the most packages in the past year
+     */
+
+    /**
+     * Gets user who spent the most money in th last year
+     */
+
+    /**
+     * Gets a list of the vehicles a package has been on (log of the date, vehicle type, and locations logged only)
+     */
+
+    /**
+     * Gets most populated street
+     */
+    public static ResultSet getMostPopulated(Connection conn){
+        String query = "select street"
+                        + "from ( select *, count(street) as living "
+                                + "from account "
+                                + "group by street ) "
+                        + "where living = max(living);";
+
+        try {
+            Statement stmt = conn.createStatement();
+            return stmt.executeQuery(query);
+        } catch (SQLException e){
+            return null;
+        }
+
+
+    }
+
+    /**
      * Get all columns of a package by tracking number, whether it's international, and the cost
      */
     public static ResultSet getInternationalCostInfo(Connection conn, String trackingID){
@@ -122,33 +154,26 @@ public class Database {
                             + "from packageitem;";
 
             return stmt.executeQuery(filter);
-            
+
         } catch (SQLException e){
             return null;
         }
     }
 
     /**
-     * Creates a Trigger that runs after a value is entered into the location_log
-     *  sets package status: < 0 is late, <= -5 is lost
+     * Get all packages that missed their delivery date
      */
-    public static boolean statusTrigger(Connection conn){
-        ResultSet result = getPackageTrackingInfo(conn, "*");
-
-        String trigger = "update tracking_db "
-                        + "set status = \'lost\' "
-                        + "where tracking_db.tracking_id = result.tracking_id and "
-                        + "result.days_left < 0;"
-                        + "update tracking_db "
-                        + "set status = \'lost\'"
-                        + "where tracking_db.tracking_id = result.tracking_id and "
-                        + "result.days_left <= -5;";
+    public static ResultSet latePackages(Connection conn){
+        String query = "select package_db.package_id "
+                        + "from ( package_db inner join tracking_db on "
+                                + "package_db.tracking_id = tracking_db.tracking_id "
+                        + "where status = \'late\' or \'lost\';";
 
         try {
             Statement stmt = conn.createStatement();
-            return stmt.execute(trigger);
+            return stmt.executeQuery(query);
         } catch (SQLException e){
-            return false;
+            return null;
         }
     }
 
@@ -218,4 +243,53 @@ public class Database {
             return null;
         }
     }
+
+    /**
+     * Creates a Trigger that runs after a value is entered into the location_log
+     *  sets package status: < 0 is late, <= -5 is lost
+     */
+    public static boolean statusTrigger(Connection conn){
+        ResultSet result = getPackageTrackingInfo(conn, "*");
+
+        String trigger = "create trigger statusTrigger after insert of location_log"
+                + "update tracking_db "
+                + "set status = \'lost\' "
+                + "where tracking_db.tracking_id = result.tracking_id and "
+                + "result.days_left < 0;"
+                + "update tracking_db "
+                + "set status = \'lost\'"
+                + "where tracking_db.tracking_id = result.tracking_id and "
+                + "result.days_left <= -5;";
+
+        try {
+            Statement stmt = conn.createStatement();
+            return stmt.execute(trigger);
+        } catch (SQLException e){
+            return false;
+        }
+    }
+
+    /**
+     * Creates a Trigger that runs after a vehicle destination is updated.
+     *  Updates the origin with the current location
+     */
+    public static boolean originTrigger(Connection conn){
+        ResultSet result = getPackageTrackingInfo(conn, "*");
+
+        String trigger = "create trigger originTrigger after update of vehicle on destination_id "
+                        + "referencing old row as orow "
+                        + "referencing new row as nrow "
+                        + "for each row when(nrow != orow) "
+                            + "begin atomic "
+                                + "set nrow.origin_id = orow.destination_id "
+                            + "end;";
+
+        try {
+            Statement stmt = conn.createStatement();
+            return stmt.execute(trigger);
+        } catch (SQLException e){
+            return false;
+        }
+    }
+
 }
