@@ -183,34 +183,22 @@ public class Database {
      * Includes days until delivery
      */
     public static ResultSet getPackageTrackingInfo(Connection conn,String packageID){
-        String join = "package_db inner join tracking_db on "
-                    + "package_db.tracking_id = tracking_db.tracking_id;";
-
         ResultSet result;
         ResultSet daysLeft = daysUntilDelivery(conn);
-        try {
-            Statement stmt = conn.createStatement();
-            result = stmt.executeQuery(join);
-        } catch (SQLException e){
-            return null;
-        }
 
-        join = "result inner join daysLeft on "
+        String joinTracking = "package_db inner join tracking_db on "
+                    + "package_db.tracking_id = tracking_db.tracking_id;";
+        String joinDaysLeft = "result inner join daysLeft on "
                 + "result.package_id = daysLeft.package_id;";
-
-        try {
-            Statement stmt = conn.createStatement();
-            result = stmt.executeQuery(join);
-        } catch (SQLException e){
-            return null;
-        }
-
         String query = "select * "
-                        + "from result "
-                        + "where result.package_id = packageID;";
+                + "from result "
+                + "where result.package_id = packageID;";
 
         try {
             Statement stmt = conn.createStatement();
+            //unsure if these guys should be queries
+            result = stmt.executeQuery(joinTracking);
+            result = stmt.executeQuery(joinDaysLeft);
             return stmt.executeQuery(query);
         } catch (SQLException e){
             return null;
@@ -224,20 +212,13 @@ public class Database {
         String query = "select distinct package_id, date,shipping_days, min(location_log.date) as start_date  "
                         + "from location_log, tracking_db"
                         + "group by package_id";
-
+        String querySecond = "select package_id, DATEDIFF(day, daysUntilDelivery.start_date, GETDATE()) as days_left"
+                            +"from daysUntilDelivery;";
         ResultSet daysUntilDelivery;
 
         try {
             Statement stmt = conn.createStatement();
             daysUntilDelivery = stmt.executeQuery(query);
-        } catch (SQLException e){
-            return null;
-        }
-
-        query = "select package_id, DATEDIFF(day, daysUntilDelivery.start_date, GETDATE()) as days_left"
-                +"from daysUntilDelivery;";
-        try {
-            Statement stmt = conn.createStatement();
             return stmt.executeQuery(query);
         } catch (SQLException e){
             return null;
