@@ -15,48 +15,6 @@ public class Database {
     // Complex queries can live here. eg. All packages on x truck? All packages delivered x day? Total amount billed to each account?
 
     /**
-     public boolean createUser(Connection conn, String [] data) {
-     return false;
-     }
-
-     public boolean createTruck(Connection conn, String [] data) {
-     return false;
-     }
-
-     public boolean createPackage(Connection conn, String [] data) {
-     return false;
-     }
-
-     public boolean createPayment(Connection conn, String [] data) {
-     return false;
-     }
-
-     public boolean createSCenter(Connection conn, String [] data) {
-     return false;
-     }
-
-     public boolean updateProfile(Connection conn, String [] data) {
-     return false;
-     }
-
-     public boolean updateMemType(Connection conn, String [] data) {
-     return false;
-     }
-
-     public boolean updateTruck(Connection conn, String [] data) {
-     return false;
-     }
-
-     public boolean updatePackage(Connection conn, String [] data) {
-     return false;
-     }
-
-     public boolean logPackage(Connection conn, String [] data) {
-     return false;
-     }
-     **/
-
-    /**
      * Creates a trigger
      * Goes off after a vehicles location updates, all packages on truck update
      */
@@ -265,30 +223,6 @@ public class Database {
         }
     }
 
-    /**
-     * Creates a Trigger that runs after a value is entered into the location_log
-     *  sets package status: < 0 is late, <= -5 is lost
-     */
-    public static boolean statusTrigger(Connection conn){
-        ResultSet result = getPackageTrackingInfo(conn, "*");
-
-        String trigger = "create trigger statusTrigger after insert of location_log"
-                + "update tracking_db "
-                + "set status = \'lost\' "
-                + "where tracking_db.tracking_id = result.tracking_id and "
-                + "result.days_left < 0;"
-                + "update tracking_db "
-                + "set status = \'lost\'"
-                + "where tracking_db.tracking_id = result.tracking_id and "
-                + "result.days_left <= -5;";
-
-        try {
-            Statement stmt = conn.createStatement();
-            return stmt.execute(trigger);
-        } catch (SQLException e){
-            return false;
-        }
-    }
 
     /**
      * Creates a Trigger that runs after a vehicle destination is updated.
