@@ -15,66 +15,106 @@ public class Database {
     // Complex queries can live here. eg. All packages on x truck? All packages delivered x day? Total amount billed to each account?
 
     /**
-    public boolean createUser(Connection conn, String [] data) {
-        return false;
-    }
+     public boolean createUser(Connection conn, String [] data) {
+     return false;
+     }
 
-    public boolean createTruck(Connection conn, String [] data) {
-        return false;
-    }
+     public boolean createTruck(Connection conn, String [] data) {
+     return false;
+     }
 
-    public boolean createPackage(Connection conn, String [] data) {
-        return false;
-    }
+     public boolean createPackage(Connection conn, String [] data) {
+     return false;
+     }
 
-    public boolean createPayment(Connection conn, String [] data) {
-        return false;
-    }
+     public boolean createPayment(Connection conn, String [] data) {
+     return false;
+     }
 
-    public boolean createSCenter(Connection conn, String [] data) {
-        return false;
-    }
+     public boolean createSCenter(Connection conn, String [] data) {
+     return false;
+     }
 
-    public boolean updateProfile(Connection conn, String [] data) {
-        return false;
-    }
+     public boolean updateProfile(Connection conn, String [] data) {
+     return false;
+     }
 
-    public boolean updateMemType(Connection conn, String [] data) {
-        return false;
-    }
+     public boolean updateMemType(Connection conn, String [] data) {
+     return false;
+     }
 
-    public boolean updateTruck(Connection conn, String [] data) {
-        return false;
-    }
+     public boolean updateTruck(Connection conn, String [] data) {
+     return false;
+     }
 
-    public boolean updatePackage(Connection conn, String [] data) {
-        return false;
-    }
+     public boolean updatePackage(Connection conn, String [] data) {
+     return false;
+     }
 
-    public boolean logPackage(Connection conn, String [] data) {
-        return false;
-    }
+     public boolean logPackage(Connection conn, String [] data) {
+     return false;
+     }
      **/
 
     /**
      * Creates a trigger
      * Goes off after a vehicles location updates, all packages on truck update
      */
-    public static void createVPTrigger(){
-
-    }
-
-    /**
-     * Gets user who owns the most packages in the past year
-     */
-
-    /**
-     * Gets user who spent the most money in th last year
-     */
 
     /**
      * Gets a list of the vehicles a package has been on (log of the date, vehicle type, and locations logged only)
      */
+
+    /**
+     * Gets user who owns the most packages in the past year
+     */
+    public static ResultSet ownsMostPackages(Connection conn) {
+        String join = "account inner join package_db on "
+                + "account.username = package_db.username;";
+        String query = "select username, count(username) as package_number"
+                + "from account_packages;";
+        String querytwo = "select distinct username "
+                + "from account_package "
+                + "where package_number = max(package_number);";
+
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet account_package = stmt.executeQuery(join);
+            account_package = stmt.executeQuery(query);
+            return stmt.executeQuery(querytwo);
+        } catch (SQLException e) {
+            return null;
+        }
+    }
+
+    /**
+     * Gets user who spent the most money in the last year
+     * (username, member_id, total_payments)
+     */
+    public static ResultSet spentMostMoney(Connection conn) {
+
+
+        String join = "non_contract_member natural left outer join contract_member;";
+        String query = "select member_id, total_payments "
+                + "from ( select distinct member_id, sum(payment) as total_payments "
+                + "from payment "
+                + "group by member_id )"
+                + "where total_payments = max(total_payments);";
+        String jointwo = "result_query  inner join result_join on "
+                + "result_query.member_id = result_join.member_id;";
+
+        try
+
+        {
+            Statement stmt = conn.createStatement();
+            ResultSet result_join = stmt.executeQuery(join);
+            ResultSet result_query = stmt.executeQuery(query);
+            return stmt.executeQuery(jointwo);
+        } catch (SQLException e) {
+            return null;
+        }
+    }
+
 
     /**
      * Gets most populated street
@@ -166,7 +206,7 @@ public class Database {
     public static ResultSet latePackages(Connection conn){
         String query = "select package_db.package_id "
                         + "from ( package_db inner join tracking_db on "
-                                + "package_db.tracking_id = tracking_db.tracking_id "
+                                + "package_db.tracking_id = tracking_db.tracking_id ) "
                         + "where status = \'late\' or \'lost\';";
 
         try {
