@@ -150,6 +150,9 @@ public class Database {
      */
     public static Package getPackageInfo(Connection conn, String trackingID){
         List<Package> objects = getPackageInfo(conn);
+        if(objects == null) {
+            return null;
+        }
         for (Object pack:objects) {
             if(!((Package) pack).getTrackingid().equals(trackingID)){
                 return ((Package)pack);

@@ -159,16 +159,9 @@
                             <label for="saddr">Street Address</label>
                             <input type="text" id="saddr" class="form-control" required>
                         </div>
-                        <div class="col-2">
+                        <div class="col-3">
                             <label for="scity">City</label>
                             <input type="text" id="scity" class="form-control" required>
-                        </div>
-                        <div class="col-1">
-                            <label for="sstate">State</label>
-                            <select id="sstate" class="custom-select" required>
-                                <option value="state">state</option>
-                                <option value="state">state</option>
-                            </select>
                         </div>
                         <div class="col-2">
                             <label for="szip">Zipcode</label>

@@ -1,5 +1,6 @@
 package org.aogiri.routes.ui;
 
+import org.aogiri.model.Database;
 import spark.*;
 
 import java.sql.Connection;
@@ -45,6 +46,7 @@ public class GetProfileRoute implements Route {
 
         // What must be populated
         vm.put("title", TITLE);
+        // vm.put("user", Database.getUserInto(conn, request.queryParams("username")));
 
         // Render the view
         return templateEngine.render(new ModelAndView(vm, VIEW_NAME));

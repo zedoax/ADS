@@ -1,5 +1,6 @@
 package org.aogiri.routes.ui;
 
+import org.aogiri.model.Database;
 import org.aogiri.objects.Package;
 import org.aogiri.objects.TrackingEntry;
 import spark.*;
@@ -41,19 +42,18 @@ public class GetTrackingRoute implements Route {
      */
     public Object handle(Request request, Response response) throws Exception {
 
-        // Retrieve the Session objects
-        Session session = request.session();
-
+        // Retrieve session objects
         String id = request.queryParams("id");
-        Package pkg = null;
+        Package pkg;
         List<TrackingEntry> tracking = new ArrayList<>();
 
         if(id != null) {
-            // TODO; Try to get actual package
-            // pkg = new Package(id, "test", "tid", "sample", "sample3", "sample2", "2", "ondewey");
+            pkg = Database.getPackageInfo(conn, id);
 
             // TODO; Get package history
             tracking.add(new TrackingEntry("01/01/18","truck", "sample"));
+        } else {
+            pkg = null;
         }
 
         // Build the view-model

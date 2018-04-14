@@ -1,5 +1,6 @@
 package org.aogiri.routes.ui;
 
+import org.aogiri.model.Database;
 import org.aogiri.objects.Package;
 import spark.*;
 
@@ -53,11 +54,16 @@ public class GetStatsRoute implements Route {
 
         // What must be populated
         vm.put("title", TITLE);
-        vm.put("order_user", "zedoax");
-        vm.put("money_user", "zedoax");
-        vm.put("street", "moneystreet");
+
+        vm.put("order_user", Database.ownsMostPackages(conn));
+        vm.put("money_user",  Database.spentMostMoney(conn));
+        vm.put("street",  Database.getMostPopulated(conn));
+
         List<Package> packages = new ArrayList<>();
-        // packages.add(new Package("a","a","a","a","a","a","a","a",  true, true,"a","a", ((float)3.00)));
+        List<Package> sqlPackages = Database.latePackages(conn);
+        if(sqlPackages != null) {
+            packages.addAll(sqlPackages);
+        }
         vm.put("packages", packages);
 
         // Render the view

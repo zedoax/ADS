@@ -1,5 +1,7 @@
 package org.aogiri.routes.ui;
 
+import org.aogiri.model.Database;
+import org.aogiri.objects.Package;
 import spark.*;
 
 import java.sql.Connection;
@@ -41,6 +43,12 @@ public class GetPackagesRoute implements Route {
 
         // Retrieve the Session objects
         Session session = request.session();
+        String username = session.attribute("username");
+
+        if(username == null) {
+            response.redirect("../");
+            return null;
+        }
 
         // Build the view-model
         HashMap<String, Object> vm = new HashMap<>();
@@ -49,6 +57,10 @@ public class GetPackagesRoute implements Route {
         vm.put("title", TITLE);
 
         List<Package> packages = new ArrayList<>();
+        List<Package> sqlPkgs = Database.userPackages(conn, username);
+        if(sqlPkgs != null) {
+            packages.addAll(sqlPkgs);
+        }
         vm.put("packages", packages);
 
         // Render the view
