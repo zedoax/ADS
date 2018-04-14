@@ -87,10 +87,10 @@ public class Application {
 
             // H2 Database connection
             Connection setup = createConnection(url + cargs, "root", "password");
-            Connection user = createConnection(url, System.getenv("MEMBER_USERNAME"), System.getenv("MEMBER_PASSWORD"));
-            Connection useradd = createConnection(url, System.getenv("MEMBERADD_USERNAME"), System.getenv("MEMBERADD_PASSWORD"));
-            Connection tracking = createConnection(url, System.getenv("TRACKING_USERNAME"), System.getenv("TRACKING_PASSWORD"));
-            Connection employee = createConnection(url, System.getenv("EMPLOYEE_USERNAME"), System.getenv("EMPLOYEE_PASSWORD"));
+            Connection user = createConnection(url, "member", "password");
+            Connection useradd = createConnection(url, "memberadd", "password");
+            Connection tracking = createConnection(url, "tracker", "password");
+            Connection employee = createConnection(url, "employee", "password");
 
             // Check for errors in H2 initialization
             if(user == null || tracking == null || employee == null) {
