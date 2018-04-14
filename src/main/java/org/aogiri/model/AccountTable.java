@@ -1,11 +1,18 @@
 package org.aogiri.model;
 
+import org.aogiri.objects.Address;
+import org.aogiri.objects.CreditCard;
+import org.aogiri.objects.Station;
+import org.aogiri.objects.User;
+
 import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 public class AccountTable {
 
@@ -100,6 +107,40 @@ public class AccountTable {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Gets a list of accounts and all their columns
+     */
+    public static List<Object> allAccounts(Connection conn){
+        List<Object> objects = new ArrayList<>();
+
+        String query = "select * "
+                +"from account;";
+
+        try{
+            Statement stmt = conn.createStatement();
+            ResultSet result = stmt.executeQuery(query);
+            SimpleDateFormat sdfr = new SimpleDateFormat("dd/MMM/yyyy");
+            while(result.next()){
+                String username = result.getString("username");
+                String password = result.getString("password");
+                String token = result.getString("session_token");
+                String first = result.getString("first_name");
+                String last = result.getString("last_name");
+                String city = result.getString("adress_city");
+                String street = result.getString("address_street");
+                String number = Integer.toString(result.getInt("address_number"));
+                String zipcode = Integer.toString(result.getInt("address_zipcode"));
+                String url = result.getString("profile_url");
+                String cardnumber = result.getString("credit_card_number");
+                String exp = sdfr.format(result.getDate("credit_card_exp"));
+                objects.add(new User(username, password, first, last,new Address(city,street,number,zipcode), new CreditCard(cardnumber,exp),url,null));
+            }
+            return objects;
+        }catch(SQLException e){
+            return null;
+        }
     }
 
     // Loosely prototyped, feel free to change
