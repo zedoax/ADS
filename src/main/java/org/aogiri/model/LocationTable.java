@@ -28,9 +28,18 @@ public class LocationTable {
         String query = String.format("INSERT INTO location_log "
                                     + "VALUES(%d,%d,\'%s\',\'%s\',%d);",
                                     packageID,locationID,time,date,trackingID);
+        String update_tracking = String.format("update tracking_db "
+                + "set status = \'lost\' "
+                + "where tracking_db.tracking_id = result.tracking_id and "
+                + "result.days_left < 0;"
+                + "update tracking_db "
+                + "set status = \'lost\'"
+                + "where tracking_db.tracking_id = result.tracking_id and "
+                + "result.days_left <= -5;");
         try {
             Statement stmt = conn.createStatement();
             stmt.execute(query);
+            stmt.execute(update_tracking);
         } catch (SQLException e){
             return false;
         }
