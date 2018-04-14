@@ -1,6 +1,7 @@
 package org.aogiri.routes.ui;
 
 import com.sun.xml.internal.bind.v2.runtime.reflect.Lister;
+import org.aogiri.model.Database;
 import org.aogiri.objects.*;
 import org.aogiri.objects.Package;
 import spark.*;
@@ -58,7 +59,7 @@ public class GetAdminRoute implements Route {
 
             // What must be populated
             vm.put("title", TITLE);
-            vm.put("package", new Package("a","a","a","a","a","a","a","a",  true, true,"a","a", ((float)3.00)));
+            // vm.put("package", new Package("a","a","a","a","a","a","a","a",  true, true,"a","a", ((float)3.00)));
             List<TrackingEntry> log = new ArrayList<>();
             log.add(new TrackingEntry("aaaa", "01/01/18", "truck", "here"));
             vm.put("log", log);
@@ -74,10 +75,10 @@ public class GetAdminRoute implements Route {
             vm.put("title", TITLE);
             vm.put("vehicle", new Vehicle("a", "a", "a", "a", "a"));
             List<Package> current = new ArrayList<>();
-            current.add(new Package("a","a","a","a","a","a","a","a",  true, true,"a","a", ((float)3.00)));
+            // current.add(new Package("a","a","a","a","a","a","a","a",  true, true,"a","a", ((float)3.00)));
             vm.put("current", current);
             List<Package> delivered = new ArrayList<>();
-            delivered.add(new Package("a","a","a","a","a","a","a","a",  true, true,"a","a", ((float)3.00)));
+            // delivered.add(new Package("a","a","a","a","a","a","a","a",  true, true,"a","a", ((float)3.00)));
             vm.put("delivered", delivered);
 
             return templateEngine.render(new ModelAndView(vm, VEHICLE_VIEW_NAME));
@@ -89,12 +90,12 @@ public class GetAdminRoute implements Route {
 
             // What must be populated
             vm.put("title", TITLE);
-            vm.put("station", new Station(station, "location"));
+            // vm.put("station", new Station(station, "location"));
             List<Vehicle> vehicles = new ArrayList<>();
             vehicles.add(new Vehicle("a", "a", "a", "a", "a"));
             vm.put("vehicles", vehicles);
             List<Package> packages = new ArrayList<>();
-            packages.add(new Package("a","a","a","a","a","a","a","a",  true, true,"a","a", ((float)3.00)));
+            // packages.add(new Package("a","a","a","a","a","a","a","a",  true, true,"a","a", ((float)3.00)));
             vm.put("packages", packages);
 
             return templateEngine.render(new ModelAndView(vm, STATION_VIEW_NAME));
@@ -109,13 +110,18 @@ public class GetAdminRoute implements Route {
         vehicles.add(new Vehicle("0001", "truck", "sample", "sample 2", "sample 3"));
         vm.put("vehicles", vehicles);
         List<Station> stations = new ArrayList<>();
-        stations.add(new Station("12220", "ayy"));
-        stations.add(new Station("0000000000000000000000000", "DELIVERED"));
+
+        // stations.add(new Station("12220", "ayy"));
+        // stations.add(new Station("0000000000000000000000000", "DELIVERED"));
         vm.put("stations", stations);
         List<Package> packages = new ArrayList<>();
+        List<Package> pkgs = Database.getPackageInfo(conn);
+        if(pkgs != null) {
+            packages.addAll(pkgs);
+        }
         vm.put("packages", packages);
         List<User> users = new ArrayList<>();
-        vm.put("users", packages);
+        vm.put("users", users);
 
         // Render the view
         return templateEngine.render(new ModelAndView(vm, VIEW_NAME));

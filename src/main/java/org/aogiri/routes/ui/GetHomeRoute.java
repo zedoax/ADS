@@ -1,8 +1,12 @@
 package org.aogiri.routes.ui;
 
+import org.aogiri.model.Database;
 import org.aogiri.objects.Package;
+import org.aogiri.objects.PackageType;
+import org.aogiri.objects.PackageWeight;
 import spark.*;
 
+import javax.xml.crypto.Data;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -62,19 +66,17 @@ public class GetHomeRoute implements Route {
 
         // Creation
         List<String> weights = new ArrayList<>();
-        weights.add("0-5");
-        weights.add("5-10");
-        weights.add("10-20");
-        weights.add("20-35");
-        weights.add("35+");
+        List<PackageWeight> sqlWeights = Database.getPackageWeights(conn);
+        if(sqlWeights != null) {
+            sqlWeights.forEach(t -> {weights.add(t.getWeightclass());});
+        }
         vm.put("weights", weights);
 
         List<String> types = new ArrayList<>();
-        types.add("envelope");
-        types.add("smallbox");
-        types.add("largebox");
-        types.add("crate");
-        types.add("steelcrate");
+        List<PackageType> sqlTypes = Database.getPackageTypes(conn);
+        if(sqlTypes != null) {
+            sqlTypes.forEach(t -> {types.add(t.getPackagetype());});
+        }
         vm.put("types", types);
 
 

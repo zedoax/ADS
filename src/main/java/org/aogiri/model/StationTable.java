@@ -1,10 +1,15 @@
 package org.aogiri.model;
 
+import org.aogiri.objects.Address;
+import org.aogiri.objects.Station;
+import org.aogiri.objects.Vehicle;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 public class StationTable {
 
@@ -53,6 +58,32 @@ public class StationTable {
             Statement stmt = conn.createStatement();
             return stmt.executeQuery(query);
         } catch (SQLException e){
+            return null;
+        }
+    }
+
+    /**
+     * Gets a list of all stations and their columns
+     */
+    public static List<Object> allStations(Connection conn){
+        List<Object> objects = new ArrayList<>();
+
+        String query = "select * "
+                +"from station;";
+
+        try{
+            Statement stmt = conn.createStatement();
+            ResultSet result = stmt.executeQuery(query);
+            while(result.next()){
+                String id = Integer.toString(result.getInt("location_id"));
+                String city = result.getString("location_city");
+                String street = Integer.toString(result.getInt("location_street"));
+                String number = result.getString("location_number");
+                String zipcode = Integer.toString(result.getInt("location_zipcode"));
+                objects.add(new Station(id,new Address(city,street,number,zipcode)));
+            }
+            return objects;
+        }catch(SQLException e){
             return null;
         }
     }

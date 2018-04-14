@@ -5,17 +5,21 @@ package org.aogiri.objects;
  */
 public class User {
     private String username;
+    private String password;
     private String firstname;
     private String lastname;
 
-    private String address;
+    private Address address;
 
-    private String credit;
+    private CreditCard credit;
     private String profile_url;
 
     private String membership;
 
-    public User(String username, String firstname, String lastname, String address, String credit, String profile_url, String membership) {
+    private String totalPayments;
+    private String totalPackages;
+
+    public User(String username, String password, String firstname, String lastname, Address address, CreditCard credit, String profile_url, String membership) {
         this.username = username;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -23,6 +27,17 @@ public class User {
         this.credit = credit;
         this.profile_url = profile_url;
         this.membership = membership;
+    }
+
+    public User(String username, String membership, String totalPayments){
+        this.username = username;
+        this.membership = membership;
+        this.totalPayments = totalPayments;
+    }
+
+    public User(String username, String totalPackages){
+        this.username = username;
+        this.totalPackages = totalPackages;
     }
 
     public String getUsername() {
@@ -37,11 +52,11 @@ public class User {
         return lastname;
     }
 
-    public String getAddress() {
+    public Address getAddress() {
         return address;
     }
 
-    public String getCredit() {
+    public CreditCard getCredit() {
         return credit;
     }
 

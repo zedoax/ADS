@@ -57,7 +57,7 @@ public class GetStatsRoute implements Route {
         vm.put("money_user", "zedoax");
         vm.put("street", "moneystreet");
         List<Package> packages = new ArrayList<>();
-        packages.add(new Package("a","a","a","a","a","a","a","a",  true, true,"a","a", ((float)3.00)));
+        // packages.add(new Package("a","a","a","a","a","a","a","a",  true, true,"a","a", ((float)3.00)));
         vm.put("packages", packages);
 
         // Render the view

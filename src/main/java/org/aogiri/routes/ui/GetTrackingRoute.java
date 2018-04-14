@@ -50,7 +50,7 @@ public class GetTrackingRoute implements Route {
 
         if(id != null) {
             // TODO; Try to get actual package
-            pkg = new Package(id, "test", "tid", "sample", "sample3", "sample2", "2", "ondewey");
+            // pkg = new Package(id, "test", "tid", "sample", "sample3", "sample2", "2", "ondewey");
 
             // TODO; Get package history
             tracking.add(new TrackingEntry("01/01/18","truck", "sample"));

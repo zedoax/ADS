@@ -9,7 +9,7 @@ public class Package {
 
     private String truck;
 
-    private String destination;
+    private Address destination; //City Street Number
     private String location;
     private String origin;
 
@@ -23,7 +23,10 @@ public class Package {
     private String pkgtype;
     private float price;
 
-    public Package(String id, String owner, String truck, String destination, String location, String origin, String eta, String status, boolean hazardous, boolean international, String weight, String pkgtype, float price) {
+    private String trackingid;
+    private String vehicleid;
+
+    public Package(String id, String owner, String truck, Address destination, String location, String origin, String eta, String status, boolean hazardous, boolean international, String weight, String pkgtype, float price) {
         this.id = id;
         this.owner = owner;
         this.truck = truck;
@@ -39,7 +42,19 @@ public class Package {
         this.price = price;
     }
 
-    public Package(String id, String owner, String truck, String destination, String location, String origin, String eta, String status) {
+    public Package(String id, String weight, String pkgtype, Boolean hazardous, String owner, String trackingid, Boolean international, float price, String vehicleid){
+        this.id = id;
+        this.weight = weight;
+        this.pkgtype = pkgtype;
+        this.hazardous = hazardous;
+        this.owner = owner;
+        this.trackingid = trackingid;
+        this.international = international;
+        this.price = price;
+        this.vehicleid = vehicleid;
+    }
+
+    public Package(String id, String owner, String truck, Address destination, String location, String origin, String eta, String status) {
         this.id = id;
         this.owner = owner;
         this.truck = truck;
@@ -55,6 +70,11 @@ public class Package {
         this.price = price;
     }
 
+    public Package(String id, String eta) {
+        this.id = id;
+        this.eta = eta;
+    }
+
     public String getId() {
         return id;
     }
@@ -67,7 +87,7 @@ public class Package {
         return truck;
     }
 
-    public String getDestination() {
+    public Address getDestination() {
         return destination;
     }
 
@@ -105,5 +125,13 @@ public class Package {
 
     public boolean isInternational() {
         return international;
+    }
+
+    public String getTrackingid(){
+        return trackingid;
+    }
+
+    public String getVehicleId(){
+        return vehicleid;
     }
 }
