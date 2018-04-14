@@ -187,7 +187,6 @@ public class Database {
     public static List<Package> getPackageInfo(Connection conn){
         ResultSet packageitem;
         List<Package> objects = new ArrayList<>();
-        List<Package> arrival = getPackageInfo(conn);
 
         String addition = "alter table package add international boolean; "
                         + "alter table package add cost decimal(20,2);";
@@ -372,9 +371,9 @@ public class Database {
     /**
      * Get all weight classes
      */
-    public static List<Object> getPackageWeights(Connection conn){
+    public static List<PackageWeight> getPackageWeights(Connection conn){
         ResultSet result;
-        List<Object> objects = new ArrayList<>();
+        List<PackageWeight> objects = new ArrayList<>();
         String query = "select * "
                 + "from package_weight;";
 
@@ -385,7 +384,7 @@ public class Database {
             while(result.next()) {
                 String weight_class = result.getString("weight_class");
                 String cost_modifier = result.getString("cost_modifier");
-                objects.add(new PackageType(weight_class,cost_modifier));
+                objects.add(new PackageWeight(weight_class,cost_modifier));
             }
             return objects;
         } catch (SQLException e){
@@ -396,9 +395,9 @@ public class Database {
     /**
      * Get all package types
      */
-    public static List<Object> getPackageTypes(Connection conn){
+    public static List<PackageType> getPackageTypes(Connection conn){
         ResultSet result;
-        List<Object> objects = new ArrayList<>();
+        List<PackageType> objects = new ArrayList<>();
         String query = "select * "
                 + "from package_class;";
         try {

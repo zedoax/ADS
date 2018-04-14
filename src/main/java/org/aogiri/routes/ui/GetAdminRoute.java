@@ -115,10 +115,13 @@ public class GetAdminRoute implements Route {
         // stations.add(new Station("0000000000000000000000000", "DELIVERED"));
         vm.put("stations", stations);
         List<Package> packages = new ArrayList<>();
-        packages = Database.getPackageInfo(conn);
+        List<Package> pkgs = Database.getPackageInfo(conn);
+        if(pkgs != null) {
+            packages.addAll(pkgs);
+        }
         vm.put("packages", packages);
         List<User> users = new ArrayList<>();
-        vm.put("users", packages);
+        vm.put("users", users);
 
         // Render the view
         return templateEngine.render(new ModelAndView(vm, VIEW_NAME));
