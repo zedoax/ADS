@@ -1,17 +1,9 @@
 package org.aogiri;
 
 import com.google.gson.Gson;
-import org.h2.command.dml.RunScriptCommand;
-import org.h2.tools.RunScript;
 import spark.TemplateEngine;
 import spark.template.freemarker.FreeMarkerEngine;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -102,8 +94,8 @@ public class Application {
 
             // Check for errors in H2 initialization
             if(user == null || tracking == null || employee == null) {
-                // TODO: Initialization Error Handling
-                // System.exit(1);
+                System.out.println("ERROR: USER INVALID IN DATABASE");
+                System.exit(1);
             }
 
             // Add shutdown closing
