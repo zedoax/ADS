@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 public class PaymentTable {
 
@@ -41,8 +42,8 @@ public class PaymentTable {
      * @return
      */
     public static ResultSet queryPaymentTable(Connection conn,
-                                                     ArrayList<String> columns,
-                                                     ArrayList<String> whereClauses){
+                                                     List<String> columns,
+                                                     List<String> whereClauses){
 
         String query = String.format("SELECT %s ", columns.get(0));
         for(int i = 1; i < columns.size(); i ++){
