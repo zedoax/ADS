@@ -45,7 +45,7 @@ CREATE TABLE package_class(
 );
 
 CREATE TABLE station(
-	location_id INT NOT NULL PRIMARY KEY,
+	location_id BIGINT NOT NULL PRIMARY KEY,
 	location_number INT NOT NULL,
 	location_street VARCHAR(40) NOT NULL,
 	location_city VARCHAR(20) NOT NULL,
@@ -53,26 +53,26 @@ CREATE TABLE station(
 );
 
 CREATE TABLE vehicle(
-	vehicle_id INT NOT NULL PRIMARY KEY,
+	vehicle_id BIGINT NOT NULL PRIMARY KEY,
 	vehicle_type VARCHAR(10) NOT NULL,
-	origin_id INT REFERENCES station(location_id),
-	location INT REFERENCES station(location_id),
-	destination_id INT REFERENCES station(location_id)
+	origin_id BIGINT REFERENCES station(location_id),
+	location BIGINT REFERENCES station(location_id),
+	destination_id BIGINT REFERENCES station(location_id)
 );
 
 CREATE TABLE tracking (
-	tracking_id INT NOT NULL PRIMARY KEY,
+	tracking_id BIGINT NOT NULL PRIMARY KEY,
 	destination_number INT NOT NULL,
 	destination_street VARCHAR(40) NOT NULL,
 	destination_city VARCHAR(20) NOT NULL,
 	destination_zipcode MEDIUMINT(5) UNSIGNED NOT NULL,
 	shipping_days INT NOT NULL,
 	status VARCHAR(20),
-	vehicle_id INT REFERENCES vehicle(vehicle_id)
+	vehicle_id BIGINT REFERENCES vehicle(vehicle_id)
 );
 
 CREATE TABLE package (
-	package_id INT NOT NULL PRIMARY KEY,
+	package_id BIGINT NOT NULL PRIMARY KEY,
 	weight_class VARCHAR(20) REFERENCES package_weight(weight_class),
 	package_type VARCHAR(20) REFERENCES package_class(package_type),
 	hazardous BOOLEAN DEFAULT false,
@@ -81,9 +81,9 @@ CREATE TABLE package (
 );
 
 CREATE TABLE location_log (
-	package_id INT REFERENCES package(package_id),
-	location_id INT REFERENCES station(location_id),
+	package_id BIGINT REFERENCES package(package_id),
+	location_id BIGINT REFERENCES station(location_id),
 	time TIME,
 	date DATE,
-	tracking_id INT REFERENCES tracking(tracking_id)
+	tracking_id BIGINT REFERENCES tracking(tracking_id)
 );
