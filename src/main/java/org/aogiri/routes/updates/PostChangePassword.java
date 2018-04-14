@@ -1,11 +1,15 @@
 package org.aogiri.routes.updates;
 
 import com.google.gson.Gson;
+import org.aogiri.model.AccountTable;
 import spark.Request;
 import spark.Response;
 import spark.Route;
+import spark.Session;
 
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.Base64;
 
 /**
  * Created by Zedoax on 4/13/2018.
@@ -24,6 +28,9 @@ public class PostChangePassword  implements Route {
     @Override
     public Object handle(Request request, Response response) throws Exception {
         // Retrieve change arguments
+        Session session = request.session();
+        String username = session.attribute("username");
+
         String password = request.queryParams("password");
         String new_password = request.queryParams("new-password");
         String new_password_confirm = request.queryParams("new-password-confirm");
@@ -35,14 +42,9 @@ public class PostChangePassword  implements Route {
             return response;
         }
 
-        if(!password.equals("TODO; password check")) {
-            response.status(401);
-            response.type("error");
-            response.body("Password invalid");
-            return response;
-        }
-
-        //TODO; update user's password in database
+        ArrayList<String> where = new ArrayList<>();
+        where.add("username = '" + username + "'");
+        AccountTable.updateAccount(conn, "password", new String(Base64.getEncoder().encode((username + ":" + password).getBytes())), where);
 
         response.status(201);
         response.type("success");

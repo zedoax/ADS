@@ -1,11 +1,14 @@
 package org.aogiri.routes.updates;
 
 import com.google.gson.Gson;
+import org.aogiri.model.AccountTable;
 import spark.Request;
 import spark.Response;
 import spark.Route;
+import spark.Session;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 /**
  * Created by Zedoax on 4/13/2018.
@@ -24,13 +27,21 @@ public class PostUpdateBilling implements Route {
     @Override
     public Object handle(Request request, Response response) throws Exception {
         // Retrieve change arguments
-        String billing = request.queryParams("cnumber")
-                + " "
-                + request.queryParams("expiry-m")
-                + "/"
-                + request.queryParams("expiry-y");
+        Session session = request.session();
+        String username = session.attribute("username");
 
-        //TODO; update user's billing in database
+        String cnum = request.queryParams("cnumber");
+        String cexp = "parseDate("
+                + request.queryParams("expiry-y")
+                + "-"
+                + request.queryParams("expiry-m")
+                + "-"
+                + "01)";
+
+        ArrayList<String> where = new ArrayList<>();
+        where.add("username = '" + username + "'");
+        AccountTable.updateAccount(conn, "credit_card_number", cnum, where);
+        AccountTable.updateAccount(conn, "credit_card_exp", cexp, where);
 
         response.status(201);
         response.type("success");

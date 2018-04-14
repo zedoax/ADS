@@ -1,11 +1,14 @@
 package org.aogiri.routes.updates;
 
 import com.google.gson.Gson;
+import org.aogiri.model.PackageTable;
 import spark.Request;
 import spark.Response;
 import spark.Route;
+import spark.Session;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 /**
  * Created by Zedoax on 4/13/2018.
@@ -24,9 +27,14 @@ public class PostUpdatePackage implements Route {
     @Override
     public Object handle(Request request, Response response) throws Exception {
         // Retrieve change arguments
+        Session session = request.session();
+        String username = session.attribute("username");
+
         String vehicle = request.queryParams("location");
 
-        //TODO; update package's vehicle in database
+        ArrayList<String> where = new ArrayList<>();
+        where.add("username = '" + username + "'");
+        PackageTable.updatePackage(conn, "location", vehicle, where);
 
         response.status(201);
         response.type("success");

@@ -1,11 +1,14 @@
 package org.aogiri.routes.updates;
 
 import com.google.gson.Gson;
+import org.aogiri.model.AccountTable;
 import spark.Request;
 import spark.Response;
 import spark.Route;
+import spark.Session;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 /**
  * Created by Zedoax on 4/13/2018.
@@ -24,9 +27,14 @@ public class PostChangeAddress implements Route {
     @Override
     public Object handle(Request request, Response response) throws Exception {
         // Retrieve change arguments
+        Session session = request.session();
+        String username = session.attribute("username");
+
         String address = request.queryParams("address");
 
-        //TODO; update user's address in database
+        ArrayList<String> where = new ArrayList<>();
+        where.add("username = '" + username + "'");
+        AccountTable.updateAccount(conn, "address", address, where);
 
 
         response.status(201);
