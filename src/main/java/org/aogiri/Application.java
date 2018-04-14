@@ -86,7 +86,7 @@ public class Application {
                     "classpath:public/sql/population/non_contract_member_population.sql'\\;runscript from '" +
                     "classpath:public/sql/population/package_class_population.sql'\\;runscript from '" +
                     "classpath:public/sql/population/package_weight_population.sql'\\;runscript from '" +
-                    "classpath:public/sql/population/payment_population.sql'\\;runscript from '" +
+                    // "classpath:public/sql/population/payment_population.sql'\\;runscript from '" +
                     "classpath:public/sql/population/station_population.sql'\\;runscript from '" +
                     "classpath:public/sql/population/vehicle_population.sql'\\;runscript from '" +
                     "classpath:public/sql/population/package_population.sql'\\;runscript from '" +
