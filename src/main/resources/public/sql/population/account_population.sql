@@ -5,7 +5,7 @@
 
 insert into account VALUES
 ('cGrimes', 'eVERyoneOPPOSITEPREPAREDdAmaSCUsIndicateBARbadosELEMENTS', 'a9dv3ujdew87h4g8lj2ghib4z', 'Carl', 'Grimes', 1, '1', 'Atlanta', 30301, 'http://runt-of-the-web.com/wordpress/wp-content/uploads/2016/04/wtf-pictures-1.jpg' , null, null),
-('kGrimes', 'Password', null, 'Rick', 'Grimes', 1, '1', 'Atlanta', 30301, null, null),
+('kGrimes', 'Password', null, 'Rick', 'Grimes', 1, '1', 'Atlanta', 30301, null, null, null),
 ('SaraJones', 'atTheWorld', 'b2dv3uvdew87g4g8lj2ghob4z', 'Sara', 'Jones', 1682, '1682', 'Keeseville', 12944, null, 4849033379487133, '1999-08-30'),
 ('Rocky98', 'ThisisAsecret9', null, 'Richie', 'Lamere', 129, '129', 'Plattsburgh', 12901, null, 4249033449487133, '1998-08-30'),
 ('scrapSpy', 'Password', 'c2dv3uvdew87g4g8lj2ghob4z', 'Scrappy', 'Doo', 8673, '8673' , 'Rochester',  14602, null, 4836865184064143, '2020-08-30'),
@@ -24,7 +24,7 @@ insert into account VALUES
 ('ThunderBolt84', 'CoinmiNting', null, 'Chris', 'Kelly', 976, '976', 'Peru', 12972, null, 4016390182452275, '2035-12-30'),
 ('AtTheFaceAtTheFace', 'NumberUnoDos3','f5dv3uvdew87g4g8lj2ghob4z', 'Nick', 'Abagis', 208, '208', 'Jersey', 07087, null, 4824889190502353, '1998-08-30'),
 ('PinaBanana', 'FruitsveggiesCars', null, 'Trudy', 'Berns', 8643, '8643', 'Austin', 73301, null, 4583762809297551, '2035-08-30'),
-('IntoTheToaster', 'IfIWEREAPOPTART', null, 'Poppy', 'Popes', 75, '75', 'Denver', 80224, null, null),
+('IntoTheToaster', 'IfIWEREAPOPTART', null, 'Poppy', 'Popes', 75, '75', 'Denver', 80224, null, null, null),
 ('bBurns', 'YkJ1cm5zOm9saXZlb2ls', null, 'Bob', 'Burns', 352, 'Rosewell Street', 'Rochester', 39284, null, null, null),
 ('Smorh', 'U21vcmg6d29ya2luZw==', null, 'Sam', 'Emlaas', 24, 'Canterbury Lane', 'Aurora', 42521, null, null, null),
 ('Neams', 'TmVhbXM6c2RmbmwzNA==', null, 'Neville', 'Baxter', 465, 'Smith Road', 'Clarence', 14031, null, 123123568421538, '2014-05-20'),
