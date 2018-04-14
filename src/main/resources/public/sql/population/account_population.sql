@@ -13,7 +13,7 @@ insert into account VALUES
 ('Boscul83', 'HillyGreenzone', null, 'Gracie', 'Patenaude', 43, '43', 'Palo Alto', 94020, null, 4040410761801138, '2025-03-15'),
 ('vasCope', 'Uppittydown', 'd3dv3uvdew87g4g8lj2ghob4z', 'Clint', 'Loons', 24, '24', 'Round Rock', 78664, null, 4711861702955607, '2008-01-30'),
 ('Groot', 'rooLjdscne', null, 'Grim', 'Rooj', 782, '782', 'Syracuse', 78664, null, null, null),
-('Spiderman', 'homeComingSpider', null, 'Peter', 'Parker', 98, '98', 'Jersey', 07030, null, null),
+('Spiderman', 'homeComingSpider', null, 'Peter', 'Parker', 98, '98', 'Jersey', 07030, null, null, null),
 ('MJ', 'Watsabulb7', 'e4dv3uvdew87g4g8lj2ghob4z', 'Mary', 'Jane', 99, '99', 'Jersey', 07030, null, 4711861702955607, '2034-11-15'),
 ('KingMoney', 'GoldPufferfish', null, 'Michael', 'Mills', 24, '24', 'Albany', 12084, null, null, null),
 ('DJBoony', 'Collegeis4Lames', null, 'Clara', 'Meyer', 6780, '6780', 'Albany', 12208, null, null, null),
