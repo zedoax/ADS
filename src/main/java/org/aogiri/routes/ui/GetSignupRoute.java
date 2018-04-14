@@ -1,32 +1,35 @@
-package org.aogiri.routes;
+package org.aogiri.routes.ui;
 
 import spark.*;
 
+import java.sql.Connection;
 import java.util.HashMap;
 
 /**
- * Created by Zedoax on 1/27/2018.
+ * Created by Zedoax on 1/25/2018
  */
-public class GetAdminRoute implements Route {
+public class GetSignupRoute implements Route {
 
     // Static variables
-    public static final String VIEW_NAME = "admin.ftl";
-    public static final String TITLE = "Amazan | Admin";
+    public static final String VIEW_NAME = "signup.ftl";
+    public static final String TITLE = "Amazan | Sign Up";
 
     // Instance variables
     private final TemplateEngine templateEngine;
+    private final Connection conn;
 
     /**
      * Create the HTTP / GET Request Handle
      *
      * @param templateEngine - the HTML template rendering engine
      */
-    public GetAdminRoute(final TemplateEngine templateEngine) {
+    public GetSignupRoute(final TemplateEngine templateEngine, final Connection conn) {
         this.templateEngine = templateEngine;
+        this.conn = conn;
     }
 
     /**
-     * Handles rendering the home screen
+     * Handles rendering the login
      *
      * @param request - the HTTP request
      * @param response - the HTTP response

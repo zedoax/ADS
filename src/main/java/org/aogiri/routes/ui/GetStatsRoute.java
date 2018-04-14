@@ -1,28 +1,33 @@
-package org.aogiri.routes;
+package org.aogiri.routes.ui;
 
+import org.aogiri.objects.Package;
 import spark.*;
 
+import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
- * Created by Zedoax on 1/25/2018
+ * Created by Zedoax on 4/12/2018.
  */
-public class GetHomeRoute implements Route {
-
+public class GetStatsRoute implements Route {
     // Static variables
-    public static final String VIEW_NAME = "index.ftl";
-    public static final String TITLE = "Amazan | Home";
+    public static final String VIEW_NAME = "stats.ftl";
+    public static final String TITLE = "Amazan | Stats";
 
     // Instance variables
     private final TemplateEngine templateEngine;
+    private final Connection conn;
 
     /**
      * Create the HTTP / GET Request Handle
      *
      * @param templateEngine - the HTML template rendering engine
      */
-    public GetHomeRoute(final TemplateEngine templateEngine) {
+    public GetStatsRoute(final TemplateEngine templateEngine, final Connection conn) {
         this.templateEngine = templateEngine;
+        this.conn = conn;
     }
 
     /**
@@ -48,6 +53,12 @@ public class GetHomeRoute implements Route {
 
         // What must be populated
         vm.put("title", TITLE);
+        vm.put("order_user", "zedoax");
+        vm.put("money_user", "zedoax");
+        vm.put("street", "moneystreet");
+        List<Package> packages = new ArrayList<>();
+        packages.add(new Package("a","a","a","a","a","a","a","a",  true, true,"a","a", ((float)3.00)));
+        vm.put("packages", packages);
 
         // Render the view
         return templateEngine.render(new ModelAndView(vm, VIEW_NAME));

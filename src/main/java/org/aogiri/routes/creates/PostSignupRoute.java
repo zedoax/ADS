@@ -1,8 +1,9 @@
-package org.aogiri.routes;
+package org.aogiri.routes.creates;
 
 import com.google.gson.Gson;
 import spark.*;
 
+import java.sql.Connection;
 import java.util.HashMap;
 
 /**
@@ -11,14 +12,16 @@ import java.util.HashMap;
 public class PostSignupRoute implements Route{
     // Instance variables
     private final Gson gson;
+    private final Connection conn;
 
     /**
      * Create the HTTP / GET Request Handle
      *
      * @param gson - Gson interpreter
      */
-    public PostSignupRoute(final Gson gson) {
+    public PostSignupRoute(final Gson gson, final Connection conn) {
         this.gson = gson;
+        this.conn = conn;
     }
 
     /**
@@ -43,6 +46,13 @@ public class PostSignupRoute implements Route{
         String username = request.queryParams("user");
         String passhash = request.queryParams("hash");
         String confirmPasshash = request.queryParams("hash-confirm");
+
+        if(!passhash.equals(confirmPasshash)) {
+            response.status(401);
+            response.body("Invalid passwords");
+            response.type("error");
+            return null;
+        }
 
         // Account Creation
 

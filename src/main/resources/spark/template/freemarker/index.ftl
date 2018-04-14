@@ -45,14 +45,23 @@
             <div class="card">
                 <div class="card-content">
                     <div class="card-header">
-                        Notifications
+                        Billing
                     </div>
                     <div class="card-body">
+                        <#list packages as package>
                         <div class="card card-noshadow p-2">
                             <div class="card-body">
-                                <p>This is a sample notification</p>
+                                <div class="row">
+                                    <div class="col-10">
+                                        <h3>Package ${package.id}</h3>
+                                    </div>
+                                    <div class="col-2">
+                                        <h5>${package.price?string.currency}</h5>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        </#list>
                     </div>
                 </div>
             </div>
@@ -85,22 +94,29 @@
                                 <label for="shipping">Shipping Class</label>
                                 <select class="custom-select" id="shipping" required>
                                     <option selected hidden value="">Choose a service...</option>
-                                    <option value="amazany">Amazany (1 day Sunday Delivery)</option>
-                                    <option value="overnight">Overnight (1 day)</option>
-                                    <option value="firstclass">First Class (2 day)</option>
-                                    <option value="priority">Priority (3 day)</option>
-                                    <option value="standard">Standard (5-7 day)</option>
+                                    <option value="1">Amazany (1 day Sunday Delivery)</option>
+                                    <option value="1">Overnight (1 day)</option>
+                                    <option value="2">First Class (2 day)</option>
+                                    <option value="3">Priority (3 day)</option>
+                                    <option value="7">Standard (5-7 day)</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="weight">Package Weight</label>
-                                <select class="custom-select" id="weight" required>
-                                    <option selected hidden value="">Choose a weight...</option>
-                                    <option value="05">0 - 5</option>
-                                    <option value="510">5 - 10</option>
-                                    <option value="1020">10 - 20</option>
-                                    <option value="20-35">20 - 35</option>
-                                    <option value="35+">35+</option>
+                                <select class="custom-select" id="weight" name="weight" required>
+                                    <option selected disabled hidden value="">Choose a weight...</option>
+                                    <#list weights as weight>
+                                        <option value="${weight}">${weight}</option>
+                                    </#list>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="type">Package Type</label>
+                                <select class="custom-select" id="type" name="type" required>
+                                    <option selected hidden disabled value="">Choose a type...</option>
+                                    <#list types as type>
+                                        <option value="${type}">${type}</option>
+                                    </#list>
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-primary">Create</button>

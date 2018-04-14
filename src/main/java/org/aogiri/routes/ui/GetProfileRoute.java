@@ -1,28 +1,31 @@
-package org.aogiri.routes;
+package org.aogiri.routes.ui;
 
 import spark.*;
 
+import java.sql.Connection;
 import java.util.HashMap;
 
 /**
  * Created by Zedoax on 1/26/2018
  */
-public class GetTrackingRoute implements Route {
+public class GetProfileRoute implements Route {
 
     // Static variables
-    public static final String VIEW_NAME = "tracking.ftl";
-    public static final String TITLE = "Amazan | Tracking";
+    public static final String VIEW_NAME = "profile.ftl";
+    public static final String TITLE = "Amazan | My Profile";
 
     // Instance variables
     private final TemplateEngine templateEngine;
+    private final Connection conn;
 
     /**
      * Create the HTTP / GET Request Handle
      *
      * @param templateEngine - the HTML template rendering engine
      */
-    public GetTrackingRoute(final TemplateEngine templateEngine) {
+    public GetProfileRoute(final TemplateEngine templateEngine, final Connection conn) {
         this.templateEngine = templateEngine;
+        this.conn = conn;
     }
 
     /**

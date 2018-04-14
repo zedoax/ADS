@@ -1,32 +1,35 @@
-package org.aogiri.routes;
+package org.aogiri.routes.ui;
 
 import spark.*;
 
+import java.sql.Connection;
 import java.util.HashMap;
 
 /**
- * Created by Zedoax on 1/28/2018.
+ * Created by Zedoax on 1/25/2018
  */
-public class GetLandingRoute implements Route {
+public class GetLoginRoute implements Route {
 
     // Static variables
-    public static final String VIEW_NAME = "landing.ftl";
-    public static final String TITLE = "Amazan";
+    public static final String VIEW_NAME = "login.ftl";
+    public static final String TITLE = "Amazan | Login";
 
     // Instance variables
     private final TemplateEngine templateEngine;
+    private final Connection conn;
 
     /**
      * Create the HTTP / GET Request Handle
      *
      * @param templateEngine - the HTML template rendering engine
      */
-    public GetLandingRoute(final TemplateEngine templateEngine) {
+    public GetLoginRoute(final TemplateEngine templateEngine, final Connection conn) {
         this.templateEngine = templateEngine;
+        this.conn = conn;
     }
 
     /**
-     * Handles rendering the home screen
+     * Handles rendering the login
      *
      * @param request - the HTTP request
      * @param response - the HTTP response
@@ -39,7 +42,6 @@ public class GetLandingRoute implements Route {
 
         // Build the view-model
         HashMap<String, Object> vm = new HashMap<>();
-
         // What must be populated
         vm.put("title", TITLE);
 

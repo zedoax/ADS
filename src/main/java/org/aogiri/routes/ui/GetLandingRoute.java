@@ -1,17 +1,18 @@
-package org.aogiri.routes;
+package org.aogiri.routes.ui;
 
 import spark.*;
 
+import java.sql.Connection;
 import java.util.HashMap;
 
 /**
- * Created by Zedoax on 1/26/2018
+ * Created by Zedoax on 1/28/2018.
  */
-public class GetProfileRoute implements Route {
+public class GetLandingRoute implements Route {
 
     // Static variables
-    public static final String VIEW_NAME = "profile.ftl";
-    public static final String TITLE = "Amazan | My Profile";
+    public static final String VIEW_NAME = "landing.ftl";
+    public static final String TITLE = "Amazan";
 
     // Instance variables
     private final TemplateEngine templateEngine;
@@ -21,7 +22,7 @@ public class GetProfileRoute implements Route {
      *
      * @param templateEngine - the HTML template rendering engine
      */
-    public GetProfileRoute(final TemplateEngine templateEngine) {
+    public GetLandingRoute(final TemplateEngine templateEngine) {
         this.templateEngine = templateEngine;
     }
 

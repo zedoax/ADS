@@ -28,9 +28,11 @@ CREATE TABLE non_contract_member(
 );
 
 CREATE TABLE payment(
-	payment DECIMAL(20,2) NOT NULL PRIMARY KEY,
-	pay_date DATE NOT NULL PRIMARY KEY,
-	member_id INT NOT NULL PRIMARY KEY);
+	payment DECIMAL(20,2) NOT NULL,
+	pay_date DATE NOT NULL,
+	member_id INT NOT NULL,
+	PRIMARY KEY (payment, pay_date, member_id)
+);
 
 CREATE TABLE package_weight(
 	weight_class VARCHAR(20) NOT NULL PRIMARY KEY,
@@ -57,7 +59,7 @@ CREATE TABLE vehicle(
 	destination_id INT REFERENCES station(location_id)
 );
 
-CREATE TABLE tracking_db (
+CREATE TABLE tracking (
 	tracking_id INT NOT NULL PRIMARY KEY,
 	destination_number INT NOT NULL,
 	destination_street VARCHAR(40) NOT NULL,
@@ -68,7 +70,7 @@ CREATE TABLE tracking_db (
 	vehicle_id INT REFERENCES vehicle(vehicle_id)
 );
 
-CREATE TABLE package_db (
+CREATE TABLE package (
 	package_id INT NOT NULL PRIMARY KEY,
 	weight_class VARCHAR(20) REFERENCES package_weight(weight_class),
 	package_type VARCHAR(20) REFERENCES package_class(package_type),

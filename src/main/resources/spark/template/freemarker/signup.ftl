@@ -13,7 +13,7 @@
 
 <body>
 
-<div class="container col-5">
+<div class="container col-7">
     <div class="p-2"></div>
     <div class="card">
         <div class="p-2"></div>
@@ -48,8 +48,22 @@
             <input class="sr-only d-none" name="hash" id="hash" type="text">
             <input class="sr-only d-none" name="hash-confirm" id="hash-confirm" type="text">
             <div class="p-2"></div>
-            <label for="address">Address</label>
-            <input type="text" name="address" class="form-control" placeholder="Street Address" required>
+            <div class="row">
+                <div class="col-6">
+                    <label for="address">Address</label>
+                    <input type="text" name="address" class="form-control" placeholder="Street Address" required>
+                </div>
+                <div class="col-4">
+                    <label for="city">City</label>
+                    <input type="text" name="city" class="form-control" placeholder="City" required>
+                </div>
+                <div class="col-2">
+                    <label for="state">State</label>
+                    <select name="city" class="form-control" required>
+                        <option disabled selected>State</option>
+                    </select>
+                </div>
+            </div>
             <div class="p-2"></div>
             <label for="zipcode">Zipcode</label>
             <input type="number" name="zipcode" max="99999" min="10000" class="form-control" placeholder="Zipcode" required>
