@@ -76,7 +76,7 @@ CREATE TABLE package (
 	weight_class VARCHAR(20) REFERENCES package_weight(weight_class),
 	package_type VARCHAR(20) REFERENCES package_class(package_type),
 	hazardous BOOLEAN DEFAULT false,
-	tracking_id INT REFERENCES tracking(tracking_id),
+	tracking_id BIGINT REFERENCES tracking(tracking_id),
 	username VARCHAR(20)
 );
 
