@@ -3,6 +3,7 @@
 -- station(location_id, location_number, location_street, location_city, location_zipcode)
 -- station(id,  integer, varchar(40), varchar(20), zipcode(minval 00000, maxval 99999))
 
+INSERT INTO station VALUES
 (3274869173246482479832638, 1432, 'Spring Street', 'Baldwin', 11510),
 (8732498173249817348023612, 532, 'Baltic Avenue' ,'Honolulu', 96815),
 (4639384544949263748473848, 3, 'Rulf Road','West Chicago', 60185),

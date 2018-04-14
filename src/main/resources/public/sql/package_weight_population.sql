@@ -4,7 +4,8 @@
 -- package_class(package_type, cost_modifier)
 
 insert into package_weight VALUES
-('light', 1.0),
-('heavy', 2.0),
-('very heavy', 3.0),
-('unliftable',9.5);
+('0 - 5', 1.0),
+('5 - 10', 2.0),
+('10 - 20', 3.0),
+('20 - 35',9.5);
+('35+',10.0);

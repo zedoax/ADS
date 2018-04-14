@@ -56,7 +56,8 @@ CREATE TABLE vehicle(
 	vehicle_id INT NOT NULL PRIMARY KEY,
 	vehicle_type VARCHAR(10) NOT NULL,
 	origin_id INT REFERENCES station(location_id),
-	destination_id INT REFERENCES station(location_id)
+	destination_id INT REFERENCES station(location_id),
+	station_id INT REFERENCES(station)
 );
 
 CREATE TABLE tracking (
@@ -75,11 +76,14 @@ CREATE TABLE package (
 	weight_class VARCHAR(20) REFERENCES package_weight(weight_class),
 	package_type VARCHAR(20) REFERENCES package_class(package_type),
 	hazardous BOOLEAN DEFAULT false,
-	tracking_id INT REFERENCES tracking(tracking_id),
+	tracking_id INT REFERENCES tracking_db(tracking_id),
 	username VARCHAR(20)
 );
 
 CREATE TABLE location_log (
-	package_id INT REFERENCES package(package_id),
-	location_id INT REFERENCES station(location_id)
+	package_id INT REFERENCES package_db(package_id),
+	location_id INT REFERENCES station(location_id),
+	time TIME,
+	date DATE,
+	tracking_id INT REFERENCES tracking_db(tracking_id)
 );
