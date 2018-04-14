@@ -80,7 +80,17 @@ public class Application {
             // H2 Connection location and setup
             String url = "./ads";
             String cargs =  ";INIT=create schema if not exists ads\\;runscript from '" +
-                    "classpath:public/sql/createTables.sql'\\;runscript from '" +
+                    "classpath:public/sql/creation/createTables.sql'\\;runscript from '" +
+                    // "classpath:public/sql/population/account_population.sql'\\;runscript from '" +
+                    "classpath:public/sql/population/contract_member_population.sql'\\;runscript from '" +
+                    "classpath:public/sql/population/location_population.sql'\\;runscript from '" +
+                    "classpath:public/sql/population/non_contract_member_population.sql'\\;runscript from '" +
+                    "classpath:public/sql/population/package_class_population.sql'\\;runscript from '" +
+                    "classpath:public/sql/population/package_weight_population.sql'\\;runscript from '" +
+                    "classpath:public/sql/population/payment_population.sql'\\;runscript from '" +
+                    "classpath:public/sql/population/station_population.sql'\\;runscript from '" +
+                    "classpath:public/sql/population/tracking_population.sql'\\;runscript from '" +
+                    "classpath:public/sql/population/vehicle_population.sql'\\;runscript from '" +
                     "classpath:public/sql/users/user_creation.sql'";
 
             // H2 Database connection

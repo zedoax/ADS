@@ -3,7 +3,7 @@
 -- tracking(tracking_id, destination_number, destination_street, destination_city, destination_zipcode, shipping_days, status, vehicle_id)
 -- tracking(id, integer, varchar(40), varchar(20), zipcode(minval 00000, maxval 99999), shipping_type, status, vehicle_id)
 
-insert into tracking_db VALUES
+insert into tracking VALUES
 (3875987432530000000055344, 24, 'St John Street', 'Grosse Pointe', 48236, 1, 'delivered', 0986457557657658134134214),
 (9348436076935476393474123, 5632, 'Rugar Street', 'Klamath Falls', 97603, 4, 'transit', 9876543243552343524352987),
 (4375986327487294875873544, 3452, 'Elm Street', 'Lemont', 60439, 1, 'transit', 7835687565765675463297555),

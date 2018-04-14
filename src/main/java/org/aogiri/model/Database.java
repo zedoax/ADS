@@ -94,8 +94,8 @@ public class Database {
     /**
      * Gets most populated street
      */
-    public static List<Object> getMostPopulated(Connection conn){
-        List<Object> objects = getPackageInfo(conn);
+    public static String getMostPopulated(Connection conn){
+        List<Package> objects = getPackageInfo(conn);
         String query = "select address_number, distinct adress_street, adress_city, address_zipcode"
                         + "from ( select *, count(address_street) as living "
                                 + "from account "
@@ -109,9 +109,9 @@ public class Database {
                 String city = result.getString("address_city");
                 String street = result.getString("address_street");
                 String zipcode = result.getString("address_zipcode");
-                objects.add(new Address(city,street,null,zipcode));
+                return street + city + zipcode;
             }
-            return objects;
+            return null;
         } catch (SQLException e){
             return null;
         }
@@ -120,8 +120,8 @@ public class Database {
     /**
      * Gets a list of packages belonging to a user
      */
-    public static List<Object> userPackages(Connection conn, String name){
-        List<Object> objects = getPackageInfo(conn);
+    public static List<Package> userPackages(Connection conn, String name){
+        List<Package> objects = getPackageInfo(conn);
         for (Object pack:objects) {
             if(!((Package) pack).getOwner().equals(name)){
                 objects.remove(pack);
@@ -135,8 +135,8 @@ public class Database {
      * Includes tracking data and package data
      * Includes days until delivery
      */
-    public static List<Object> getPackageTrackingInfo(Connection conn,String packageID){
-        List<Object> objects = getPackageInfo(conn);
+    public static List<Package> getPackageTrackingInfo(Connection conn,String packageID){
+        List<Package> objects = getPackageInfo(conn);
         for (Object pack:objects) {
             if(!((Package) pack).getId().equals(packageID)){
                 objects.remove(pack);
@@ -148,21 +148,21 @@ public class Database {
     /**
      * Get all columns of a package by tracking number, whether it's international, and the cost
      */
-    public static List<Object> getPackageInfo(Connection conn, String trackingID){
-        List<Object> objects = getPackageInfo(conn);
+    public static Package getPackageInfo(Connection conn, String trackingID){
+        List<Package> objects = getPackageInfo(conn);
         for (Object pack:objects) {
             if(!((Package) pack).getTrackingid().equals(trackingID)){
-                objects.remove(pack);
+                return ((Package)pack);
             }
         }
-        return objects;
+        return null;
     }
 
     /**
      * Get all columns of a package by truckID, whether it's international, and the cost
      */
-    public static List<Object> getTruckPackages(Connection conn,String vehicleID){
-        List<Object> objects = getPackageInfo(conn);
+    public static List<Package> getTruckPackages(Connection conn,String vehicleID){
+        List<Package> objects = getPackageInfo(conn);
         for (Object pack:objects) {
             if(!((Package) pack).getVehicleId().equals(vehicleID)){
                 objects.remove(pack);
@@ -174,8 +174,8 @@ public class Database {
     /**
      * Get all columns of a package by truckID, whether it's international, and the cost
      */
-    public static List<Object> getDeliveredTruckPackages(Connection conn,String vehicleID){
-        List<Object> objects = getPackageInfo(conn);
+    public static List<Package> getDeliveredTruckPackages(Connection conn,String vehicleID){
+        List<Package> objects = getPackageInfo(conn);
         for (Object pack:objects) {
             if(!((Package) pack).getVehicleId().equals(vehicleID) || !((Package) pack).getStatus().equals("delivered")){
                 objects.remove(pack);
@@ -184,10 +184,10 @@ public class Database {
         return objects;
     }
 
-    public static List<Object> getPackageInfo(Connection conn){
+    public static List<Package> getPackageInfo(Connection conn){
         ResultSet packageitem;
-        List<Object> objects = new ArrayList<>();
-        List<Object> arrival = getPackageInfo(conn);
+        List<Package> objects = new ArrayList<>();
+        List<Package> arrival = getPackageInfo(conn);
 
         String addition = "alter table package add international boolean; "
                         + "alter table package add cost decimal(20,2);";
@@ -245,8 +245,8 @@ public class Database {
     /**
      * Get all packages that missed their delivery date
      */
-    public static List<Object> latePackages(Connection conn){
-        List<Object> objects = new ArrayList<>();
+    public static List<Package> latePackages(Connection conn){
+        List<Package> objects = new ArrayList<>();
         String query = "select package_id, tracking_id"
                         + "from ( package inner join tracking on "
                                 + "package.tracking_id = tracking.tracking_id ) "
@@ -256,9 +256,9 @@ public class Database {
             Statement stmt = conn.createStatement();
             ResultSet result = stmt.executeQuery(query);
             while (result.next()) {
-                List<Object> temp = getPackageInfo(conn,result.getString("tracking_id"));
-                if(temp.size() > 0) {
-                    objects.add(temp.get(0));
+                Package temp = getPackageInfo(conn,result.getString("tracking_id"));
+                if(temp != null) {
+                    objects.add(temp);
                 }
             }
             return objects;
@@ -303,9 +303,9 @@ public class Database {
     /**
      * Gets all packages at a shipping center
      */
-    public static List<Object> shippingCenterPackages(Connection conn, String id){
+    public static List<Package> shippingCenterPackages(Connection conn, String id){
         ResultSet result;
-        List<Object> objects = new ArrayList<>();
+        List<Package> objects = new ArrayList<>();
         String query = "select vehicle.vehicle_id "
                         + "from tracking, vehicle "
                         + "where package.tracking_id = vehicle.tracking_id;";
@@ -315,7 +315,7 @@ public class Database {
         String join = "packageResult inner join vehicleResult on "
                         +" packageResult.vehicle_id = vehicleResult.vehicle_id;";
 
-        List<Object> pkgInfo = getPackageInfo(conn);
+        List<Package> pkgInfo = getPackageInfo(conn);
         try {
             Statement stmt = conn.createStatement();
             ResultSet packageResult = stmt.executeQuery(query);
@@ -323,7 +323,7 @@ public class Database {
             result = stmt.executeQuery(join);
             while(result.next()){
                 String vehicle_id = Integer.toString(result.getInt("vehicle_id"));
-                for (Object object: pkgInfo) {
+                for (Package object: pkgInfo) {
                     if(vehicle_id.equals(((Package) object).getVehicleId())){
                         objects.add(object);
                         pkgInfo.remove(object);
