@@ -1,4 +1,4 @@
-package org.aogiri.routes;
+package org.aogiri.routes.ui;
 
 import spark.*;
 

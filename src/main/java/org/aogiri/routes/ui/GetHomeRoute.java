@@ -1,4 +1,4 @@
-package org.aogiri.routes;
+package org.aogiri.routes.ui;
 
 import org.aogiri.objects.Package;
 import spark.*;
@@ -9,12 +9,13 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by Zedoax on 4/12/2018.
+ * Created by Zedoax on 1/25/2018
  */
-public class GetStatsRoute implements Route {
+public class GetHomeRoute implements Route {
+
     // Static variables
-    public static final String VIEW_NAME = "stats.ftl";
-    public static final String TITLE = "Amazan | Stats";
+    public static final String VIEW_NAME = "index.ftl";
+    public static final String TITLE = "Amazan | Home";
 
     // Instance variables
     private final TemplateEngine templateEngine;
@@ -25,7 +26,7 @@ public class GetStatsRoute implements Route {
      *
      * @param templateEngine - the HTML template rendering engine
      */
-    public GetStatsRoute(final TemplateEngine templateEngine, final Connection conn) {
+    public GetHomeRoute(final TemplateEngine templateEngine, final Connection conn) {
         this.templateEngine = templateEngine;
         this.conn = conn;
     }
@@ -53,12 +54,29 @@ public class GetStatsRoute implements Route {
 
         // What must be populated
         vm.put("title", TITLE);
-        vm.put("order_user", "zedoax");
-        vm.put("money_user", "zedoax");
-        vm.put("street", "moneystreet");
+
+        // Billing
         List<Package> packages = new ArrayList<>();
-        packages.add(new Package("a","a","a","a","a","a","a","a",  true, true,"a","a", ((float)3.00)));
+        packages.add(new Package("11111", ((float)2.00)));
         vm.put("packages", packages);
+
+        // Creation
+        List<String> weights = new ArrayList<>();
+        weights.add("0-5");
+        weights.add("5-10");
+        weights.add("10-20");
+        weights.add("20-35");
+        weights.add("35+");
+        vm.put("weights", weights);
+
+        List<String> types = new ArrayList<>();
+        types.add("envelope");
+        types.add("smallbox");
+        types.add("largebox");
+        types.add("crate");
+        types.add("steelcrate");
+        vm.put("types", types);
+
 
         // Render the view
         return templateEngine.render(new ModelAndView(vm, VIEW_NAME));

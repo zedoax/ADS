@@ -50,6 +50,11 @@ public class Package {
         this.status = status;
     }
 
+    public Package(String id, float price) {
+        this.id = id;
+        this.price = price;
+    }
+
     public String getId() {
         return id;
     }

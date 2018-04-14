@@ -1,4 +1,4 @@
-package org.aogiri.routes;
+package org.aogiri.routes.creates;
 
 import com.google.gson.Gson;
 import spark.*;
@@ -46,6 +46,13 @@ public class PostSignupRoute implements Route{
         String username = request.queryParams("user");
         String passhash = request.queryParams("hash");
         String confirmPasshash = request.queryParams("hash-confirm");
+
+        if(!passhash.equals(confirmPasshash)) {
+            response.status(401);
+            response.body("Invalid passwords");
+            response.type("error");
+            return null;
+        }
 
         // Account Creation
 

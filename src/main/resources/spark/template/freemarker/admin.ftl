@@ -32,7 +32,7 @@
                     <a class="nav-link" href="#">Admin <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./stats">Stats</a>
+                    <a class="nav-link disabled" href="../admin/stats">Stats</a>
                 </li>
             </ul>
         </nav>
@@ -65,16 +65,11 @@
                                 <th>
                                     <p>${vehicle.type}</p>
                                 </th>
-                                <form>
-                                    <th>
-                                        <input type="text" disabled="disabled" name="vehicle.id" value="${vehicle.id}" hidden>
-                                        <select class="custom-select" id="origin" name="origin">
-                                            <option selected disabled hidden>${vehicle.origin}</option>
-                                            <#list stations as station>
-                                            <option value="${station.location}">${station.location}</option>
-                                            </#list>
-                                        </select>
-                                    </th>
+                                <th>
+                                ${vehicle.origin}
+                                </th>
+                                <form method="post" action="/updateTruck">
+                                    <input type="text" hidden disabled name="vehicle" value="${vehicle.id}" required>
                                     <th>
                                         <select class="custom-select" id="location" name="location">
                                             <option selected disabled hidden>${vehicle.location}</option>
@@ -108,23 +103,18 @@
                                         </select>
                                     </th>
                                     <th>
-                                        <select class="custom-select" id="origin" name="origin">
-                                        <#list stations as station>
-                                            <option value="${station.location}">${station.location}</option>
-                                        </#list>
-                                        </select>
                                     </th>
                                     <th>
                                         <select class="custom-select" id="location" name="location">
                                         <#list stations as station>
-                                            <option value="${station.location}">${station.location}</option>
+                                            <option value="${station.id}">${station.location}</option>
                                         </#list>
                                         </select>
                                     </th>
                                     <th>
                                         <select class="custom-select" id="destination" name="destination">
                                         <#list stations as station>
-                                            <option value="${station.location}">${station.location}</option>
+                                            <option value="${station.id}">${station.location}</option>
                                         </#list>
                                         </select>
                                     </th>
@@ -267,7 +257,8 @@
                                 <th>${user.lastname}</th>
                                 <th>${user.address}</th>
                                 <th>${user.credit}</th>
-                                <form>
+                                <form method="post" action="/updateUser">
+                                    <input hidden disabled name="member" value="${user.username}" required>
                                     <th>
                                         <select class="custom-select" name="membership">
                                             <option selected disabled hidden>${user.membership}</option>

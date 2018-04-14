@@ -122,9 +122,9 @@
                         <div class="form-group">
                             <label class="sr-only" for="tracking">Input Tracking Number</label>
                             <#if invalid??>
-                                <input type="number" class="form-control is-invalid" id="tracking" name="id" placeholder="Tracking Identification" required>
+                                <input type="text" class="form-control is-invalid" id="tracking" name="id" placeholder="Tracking Identification" required>
                             <#else>
-                                <input type="number" class="form-control" id="tracking" name="id" placeholder="Tracking Identification" required>
+                                <input type="text" class="form-control" id="tracking" name="id" placeholder="Tracking Identification" required>
                             </#if>
                             <div class="invalid-feedback">
                                 <#if message??>

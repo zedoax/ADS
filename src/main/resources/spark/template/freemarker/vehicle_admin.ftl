@@ -31,6 +31,9 @@
         <li class="nav-item active">
             <a class="nav-link" href="../admin">Admin <span class="sr-only">(current)</span></a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" href="../admin/stats">Stats</a>
+        </li>
     </ul>
 </nav>
 
@@ -124,7 +127,7 @@
                     </#if>
                     </th>
                     <th>
-                    ${package.price}
+                    ${package.price?string.currency}
                     </th>
                 </tr>
                 </#list>
@@ -183,7 +186,7 @@
                         </#if>
                     </th>
                     <th>
-                    ${package.price}
+                    ${package.price?string.currency}
                     </th>
                 </tr>
                 </#list>

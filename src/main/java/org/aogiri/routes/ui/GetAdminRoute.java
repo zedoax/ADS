@@ -1,4 +1,4 @@
-package org.aogiri.routes;
+package org.aogiri.routes.ui;
 
 import com.sun.xml.internal.bind.v2.runtime.reflect.Lister;
 import org.aogiri.objects.*;
@@ -110,6 +110,7 @@ public class GetAdminRoute implements Route {
         vm.put("vehicles", vehicles);
         List<Station> stations = new ArrayList<>();
         stations.add(new Station("12220", "ayy"));
+        stations.add(new Station("0000000000000000000000000", "DELIVERED"));
         vm.put("stations", stations);
         List<Package> packages = new ArrayList<>();
         vm.put("packages", packages);

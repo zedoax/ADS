@@ -1,18 +1,20 @@
-package org.aogiri.routes;
+package org.aogiri.routes.ui;
 
 import spark.*;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Zedoax on 1/25/2018
  */
-public class GetHomeRoute implements Route {
+public class GetPackagesRoute implements Route {
 
     // Static variables
-    public static final String VIEW_NAME = "index.ftl";
-    public static final String TITLE = "Amazan | Home";
+    public static final String VIEW_NAME = "packages.ftl";
+    public static final String TITLE = "Amazan | My Packages";
 
     // Instance variables
     private final TemplateEngine templateEngine;
@@ -23,7 +25,7 @@ public class GetHomeRoute implements Route {
      *
      * @param templateEngine - the HTML template rendering engine
      */
-    public GetHomeRoute(final TemplateEngine templateEngine, final Connection conn) {
+    public GetPackagesRoute(final TemplateEngine templateEngine, final Connection conn) {
         this.templateEngine = templateEngine;
         this.conn = conn;
     }
@@ -39,18 +41,15 @@ public class GetHomeRoute implements Route {
 
         // Retrieve the Session objects
         Session session = request.session();
-        String sessionId = session.attribute("session_id");
-
-        // Decide if a redirect is required
-        if(sessionId == null) {
-            response.redirect("../landing", 302);
-        }
 
         // Build the view-model
         HashMap<String, Object> vm = new HashMap<>();
 
         // What must be populated
         vm.put("title", TITLE);
+
+        List<Package> packages = new ArrayList<>();
+        vm.put("packages", packages);
 
         // Render the view
         return templateEngine.render(new ModelAndView(vm, VIEW_NAME));
