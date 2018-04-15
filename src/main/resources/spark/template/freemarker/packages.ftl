@@ -50,13 +50,15 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <#list packages as package>
                     <tr>
                         <td>Priority</td>
-                        <td>2</td>
-                        <td>ADS WAREHOUSE SYRACUSE | Scan in</td>
-                        <td>7289389384756483909293840</td>
-                        <td>1 LOMB MEMORIAL DRIVE, HENRIETTA NY 14623</td>
+                        <td>${package.eta}</td>
+                        <td>${package.location}</td>
+                        <td><a href="/tracking?id=${package.id}">${package.id}</a></td>
+                        <td>${package.destination}</td>
                     </tr>
+                    </#list>
                 </tbody>
             </table>
         </div>

@@ -19,17 +19,20 @@
                 <li class="nav-item active">
                     <a  class="nav-link" href="../">Home</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" aria-disabled="true">
                     <a class="nav-link disabled" href="../packages">Packages</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" aria-disabled="true">
                     <a class="nav-link disabled" href="../profile">Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled" href="../tracking">Tracking</a>
+                    <a class="nav-link" href="../tracking">Tracking</a>
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item active" aria-disabled="true">
                     <a class="nav-link" href="#">Admin <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="../admin/stats">Stats</a>
                 </li>
             </ul>
         </nav>
@@ -54,30 +57,33 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <#list vehicles as vehicle>
                             <tr>
                                 <th>
-                                    1234567890
+                                    <a href="../admin?vehicle=${vehicle.id}">${vehicle.id}</a>
                                 </th>
                                 <th>
-                                    <p>Truck</p>
+                                    <p>${vehicle.type}</p>
                                 </th>
-                                <form>
+                                <th>
+                                ${vehicle.origin}
+                                </th>
+                                <form method="post" action="/updateTruck">
+                                    <input type="text" hidden disabled name="vehicle" value="${vehicle.id}" required>
                                     <th>
-                                        <select class="custom-select" id="location">
-                                            <option value="SAMPLE LOCATION">Sample Location</option>
-                                            <option value="SAMPLE LOCATION 2">Sample Location 2</option>
+                                        <select class="custom-select" id="location" name="location">
+                                            <option selected disabled hidden>${vehicle.location}</option>
+                                            <#list stations as station>
+                                            <option value="${station.location}">${station.location}</option>
+                                            </#list>
                                         </select>
                                     </th>
                                     <th>
-                                        <select class="custom-select" id="location">
-                                            <option value="SAMPLE LOCATION">Sample Location</option>
-                                            <option value="SAMPLE LOCATION 2">Sample Location 2</option>
-                                        </select>
-                                    </th>
-                                    <th>
-                                        <select class="custom-select" id="destination">
-                                            <option value="SAMPLE LOCATION">Sample Location</option>
-                                            <option value="SAMPLE LOCATION 2">Sample Location 2</option>
+                                        <select class="custom-select" id="destination" name="destination">
+                                            <option selected disabled hidden>${vehicle.destination}</option>
+                                            <#list stations as station>
+                                            <option value="${station.location}">${station.location}</option>
+                                            </#list>
                                         </select>
                                     </th>
                                     <th>
@@ -85,32 +91,31 @@
                                     </th>
                                 </form>
                             </tr>
+                            </#list>
                             <tr>
                                 <th></th>
-                                <form>
+                                <form name="create_vehicle">
                                     <th>
-                                        <select class="custom-select" id="type">
-                                            <option value="truck">Truck</option>
-                                            <option value="plane">Plane</option>
-                                            <option value="freight">Freight</option>
+                                        <select class="custom-select" id="type" name="type">
+                                            <option value="truck">truck</option>
+                                            <option value="truck">plane</option>
+                                            <option value="truck">ship</option>
                                         </select>
                                     </th>
                                     <th>
-                                        <select class="custom-select" id="location">
-                                            <option value="SAMPLE LOCATION">Sample Location</option>
-                                            <option value="SAMPLE LOCATION 2">Sample Location 2</option>
+                                    </th>
+                                    <th>
+                                        <select class="custom-select" id="location" name="location">
+                                        <#list stations as station>
+                                            <option value="${station.id}">${station.location}</option>
+                                        </#list>
                                         </select>
                                     </th>
                                     <th>
-                                        <select class="custom-select" id="location">
-                                            <option value="SAMPLE LOCATION">Sample Location</option>
-                                            <option value="SAMPLE LOCATION 2">Sample Location 2</option>
-                                        </select>
-                                    </th>
-                                    <th>
-                                        <select class="custom-select" id="destination">
-                                            <option value="SAMPLE LOCATION">Sample Location</option>
-                                            <option value="SAMPLE LOCATION 2">Sample Location 2</option>
+                                        <select class="custom-select" id="destination" name="destination">
+                                        <#list stations as station>
+                                            <option value="${station.id}">${station.location}</option>
+                                        </#list>
                                         </select>
                                     </th>
                                     <th>
@@ -124,21 +129,39 @@
             </div>
             <div class="card col-12 mb-3 p-3">
                 <div class="card-content">
+                    <div class="card-header bg-dark text-light">
+                        Station Database
+                    </div>
+                    <div class="row">
+                        <table class="table table-bordered table-striped text-center">
+                            <thead>
+                            <tr>
+                                <th>Station ID</th>
+                                <th>Location</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <#list stations as station>
+                            <tr>
+                                <th>
+                                <a href="../admin?station=${station.id}">${station.id}</a>
+                                </th>
+                                <th>
+                                ${station.location}
+                                </th>
+                            </tr>
+                            </#list>
+                            </tbody>
+                        </table>
+                    </div>
                     <form class="row">
                         <div class="col-5">
                             <label for="saddr">Street Address</label>
                             <input type="text" id="saddr" class="form-control" required>
                         </div>
-                        <div class="col-2">
+                        <div class="col-3">
                             <label for="scity">City</label>
                             <input type="text" id="scity" class="form-control" required>
-                        </div>
-                        <div class="col-1">
-                            <label for="sstate">State</label>
-                            <select id="sstate" class="custom-select" required>
-                                <option value="state">state</option>
-                                <option value="state">state</option>
-                            </select>
                         </div>
                         <div class="col-2">
                             <label for="szip">Zipcode</label>
@@ -161,38 +184,44 @@
                         <tr>
                             <th>Tracking Number</th>
                             <th>Owner</th>
-                            <th>Origin</th>
-                            <th>Current Location</th>
+                            <th>Current Vechicle</th>
                             <th>Destination</th>
                             <th>Update</th>
                         </tr>
                         </thead>
                         <tbody>
+                        <#list packages as package>
                         <tr>
                             <th>
-                                <p>00000000000000000000000000000</p>
+                                <p>${package.id}</p>
                             </th>
                             <th>
-                                <p>Elijah</p>
-                            </th>
-                            <th>
-                                ORIGIN ADDRESS
+                                <p>${package.owner}</p>
                             </th>
                             <form>
                                 <th>
-                                    <select class="custom-select" id="location">
-                                        <option value="SAMPLE LOCATION">Sample Location</option>
-                                        <option value="SAMPLE LOCATION 2">Sample Location 2</option>
+                                    <select class="custom-select" id="location" name="location">
+                                        <option disabled hidden selected>
+                                            <#if package.location == "null null null 0">
+                                             DELIVERED
+                                            <#else>
+                                            ${package.location}
+                                            </#if>
+                                        </option>
+                                        <#list vehicles as vehicle>
+                                        <option value="${vehicle.id}">${vehicle.id}</option>
+                                        </#list>
                                     </select>
                                 </th>
                                 <th>
-                                    DESTINATION ADDRESS
+                                    ${package.destination}
                                 </th>
                                 <th>
                                     <button type="submit" class="btn btn-primary">Update</button>
                                 </th>
                             </form>
                         </tr>
+                        </#list>
                         </tbody>
                     </table>
                 </div>
@@ -216,15 +245,18 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <#list users as user>
                             <tr>
-                                <th>Zedoax</th>
-                                <th>Elijah</th>
-                                <th>Bendinsky</th>
-                                <th>EXAMPLE ADDRESS</th>
-                                <th>XXXX-XXXX-XXXX-XXXX exp.01/2020</th>
-                                <form>
+                                <th>${user.username}</th>
+                                <th>${user.firstname}</th>
+                                <th>${user.lastname}</th>
+                                <th>${user.address}</th>
+                                <th>${user.credit}</th>
+                                <form method="post" action="/updateUser">
+                                    <input hidden disabled name="member" value="${user.username}" required>
                                     <th>
                                         <select class="custom-select" name="membership">
+                                            <option selected disabled hidden>${user.membership}</option>
                                             <option value="default">Default</option>
                                             <option value="contract">Contract</option>
                                         </select>
@@ -234,6 +266,7 @@
                                     </th>
                                 </form>
                             </tr>
+                            </#list>
                         </tbody>
                     </table>
                 </div>

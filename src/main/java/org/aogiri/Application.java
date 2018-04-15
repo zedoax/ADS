@@ -32,7 +32,7 @@ public class Application {
             try {
 
                 //This needs to be on the front of your location
-                String url = "jdbc:h2:" + location;
+                String url = "jdbc:h2:mem:" + location;
 
                 //This tells it to use the h2 driver
                 Class.forName("org.h2.Driver");
@@ -69,31 +69,44 @@ public class Application {
             // Freemarker templates to generate HTML responses sent to client
             final TemplateEngine templateEngine = new FreeMarkerEngine();
 
-            String location = "~/ads/ads";
+            // H2 Connection location and setup
+            String url = "./ads";
+            String cargs =  ";INIT=create schema if not exists ads\\;runscript from '" +
+                    "classpath:public/sql/creation/createTables.sql'\\;runscript from '" +
+                     "classpath:public/sql/population/account_population.sql'\\;runscript from '" +
+                    "classpath:public/sql/population/contract_member_population.sql'\\;runscript from '" +
+                    "classpath:public/sql/population/non_contract_member_population.sql'\\;runscript from '" +
+                    "classpath:public/sql/population/package_class_population.sql'\\;runscript from '" +
+                    "classpath:public/sql/population/package_weight_population.sql'\\;runscript from '" +
+                    "classpath:public/sql/population/payment_population.sql'\\;runscript from '" +
+                    "classpath:public/sql/population/station_population.sql'\\;runscript from '" +
+                    "classpath:public/sql/population/vehicle_population.sql'\\;runscript from '" +
+                    "classpath:public/sql/population/tracking_population.sql'\\;runscript from '" +
+                    "classpath:public/sql/population/package_population.sql'\\;runscript from '" +
+                    "classpath:public/sql/population/location_population.sql'\\;runscript from '" +
+                    "classpath:public/sql/users/user_creation.sql'";
 
             // H2 Database connection
-            Connection user = createConnection(location, System.getenv("USER_USERNAME"), System.getenv("USER_PASSWORD"));
-            Connection useradd = createConnection(location, System.getenv("USERADD_USERNAME"), System.getenv("USERADD_PASSWORD"));
-            Connection tracking = createConnection(location, System.getenv("TRACKING_USERNAME"), "TRACKING_PASSWORD");
-            Connection employee = createConnection(location, System.getenv("EMPLOYEE_USERNAME"), System.getenv("EMPLOYEE_PASSWORD"));
+            Connection setup = createConnection(url + cargs, "root", "password");
+            Connection user = createConnection(url, "member", "password");
+            Connection useradd = createConnection(url, "memberadd", "password");
+            Connection tracking = createConnection(url, "tracker", "password");
+            Connection employee = createConnection(url, "employee", "password");
 
             // Check for errors in H2 initialization
             if(user == null || tracking == null || employee == null) {
-                // TODO: Initialization Error Handling
-                // System.exit(1);
+                System.out.println("ERROR: USER INVALID IN DATABASE");
+                System.exit(1);
             }
 
             // Add shutdown closing
             Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    try {
-                        user.close();
-                        tracking.close();
-                        employee.close();
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
+                    closeConnection(user);
+                    closeConnection(useradd);
+                    closeConnection(tracking);
+                    closeConnection(employee);
                 }
             }));
 
