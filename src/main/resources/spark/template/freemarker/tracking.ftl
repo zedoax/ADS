@@ -100,7 +100,6 @@
                             <thead>
                                 <tr>
                                     <th>Date</th>
-                                    <th>Vehicle</th>
                                     <th>Location</th>
                                 </tr>
                             </thead>
@@ -108,7 +107,6 @@
                                 <#list tracking as entry>
                                 <tr>
                                     <th>${entry.date}</th>
-                                    <th>${entry.vehicle_type}</th>
                                     <th>${entry.location}</th>
                                 </tr>
                                 </#list>

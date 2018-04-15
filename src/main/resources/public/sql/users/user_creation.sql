@@ -10,7 +10,7 @@ GRANT INSERT ON account, non_contract_member TO memberadd;
 
 CREATE USER tracker PASSWORD 'password';
 GRANT SELECT ON package, location_log, tracking,
-  vehicle, station TO tracker;
+  vehicle, station, package_class, package_weight TO tracker;
 
 CREATE USER employee PASSWORD 'password';
 GRANT ALL ON account, contract_member, non_contract_member,

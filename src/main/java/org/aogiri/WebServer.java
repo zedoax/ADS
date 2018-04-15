@@ -82,7 +82,7 @@ public class WebServer {
         post(LOGIN_URL, new PostLoginRoute(gson, user));
         get(PACKAGES_URL, new GetPackagesRoute(templateEngine, user));
         get(PROFILE_URL, new GetProfileRoute(templateEngine, user));
-        get(TRACKING_URL, new GetTrackingRoute(templateEngine, tracking));
+        get(TRACKING_URL, new GetTrackingRoute(templateEngine, employee));
         get(SIGN_UP_URL, new GetSignupRoute(templateEngine, user));
         post(SIGN_UP_URL, new PostSignupRoute(gson, useradd));
         get(ADMIN_URL, new GetAdminRoute(templateEngine, employee));

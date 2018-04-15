@@ -26,13 +26,13 @@ public class Package {
     private String trackingid;
     private String vehicleid;
 
-    public Package(String id, String owner, String truck, String destination, String location, String origin, String eta, String status, boolean hazardous, boolean international, String weight, String pkgtype, float price) {
+    public Package(String id, String owner, String truck, String destination, String trackingid, String location, String eta, String status, boolean hazardous, boolean international, String weight, String pkgtype, float price) {
         this.id = id;
         this.owner = owner;
         this.truck = truck;
         this.destination = destination;
+        this.trackingid = trackingid;
         this.location = location;
-        this.origin = origin;
         this.eta = eta;
         this.status = status;
         this.hazardous = hazardous;
@@ -54,12 +54,12 @@ public class Package {
         this.vehicleid = vehicleid;
     }
 
-    public Package(String id, String owner, String truck, String destination, String location, String origin, String eta, String status) {
+    public Package(String id, String owner, String truck, String destination, String trackingid, String origin, String eta, String status) {
         this.id = id;
         this.owner = owner;
         this.truck = truck;
         this.destination = destination;
-        this.location = location;
+        this.trackingid = trackingid;
         this.origin = origin;
         this.eta = eta;
         this.status = status;

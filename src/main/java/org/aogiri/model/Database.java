@@ -133,12 +133,40 @@ public class Database {
      * Includes tracking data and package data
      * Includes days until delivery
      */
-    public static List<Package> getPackageTrackingInfo(Connection conn,String packageID){
+    public static Package getPackageTrackingInfo(Connection conn,String packageID){
         List<Package> objects = getPackageInfo(conn);
-        for (Object pack:objects) {
-            if(!((Package) pack).getId().equals(packageID)){
-                objects.remove(pack);
+        for (Package pack: objects) {
+            if(pack.getTrackingid().equals(packageID)) {
+                return pack;
             }
+        }
+        return null;
+    }
+
+    /**
+     * Get tracking entries from log
+     */
+    public static List<TrackingEntry> getTrackingHistory(Connection conn, String id) {
+        List<TrackingEntry> objects = new ArrayList<>();
+        String query = "select location_number, location_street, location_city, location_zipcode, "
+                + " date from (station inner join location_log on " +
+                "location_log.location_id = station.location_id) where location_log.tracking_id = '" + id + "';";
+
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet packageitem = stmt.executeQuery(query);
+
+            while(packageitem.next()) {
+                String location_number = packageitem.getString("location_number");
+                String location_street = packageitem.getString("location_street");
+                String location_city = packageitem.getString("location_city");
+                String location_zipcode = packageitem.getString("location_zipcode");
+                String date = packageitem.getString("date");
+                objects.add(new TrackingEntry(date, null, location_number + " " +
+                    location_street + " " + location_city + " " + location_zipcode));
+            }
+        } catch (SQLException e){
+            return null;
         }
         return objects;
     }
@@ -151,9 +179,11 @@ public class Database {
         if(objects == null) {
             return null;
         }
-        for (Object pack:objects) {
-            if(!((Package) pack).getTrackingid().equals(trackingID)){
-                return ((Package)pack);
+        for (Package pack:objects) {
+            if(pack.getTrackingid() != null) {
+                if((pack).getTrackingid().equals(trackingID)){
+                    return pack;
+                }
             }
         }
         return null;
@@ -208,8 +238,9 @@ public class Database {
         String dateMod = "packageitem inner join arrival on "
                         + "packageitem.package_id = arrival.package_id;";
 
-        String query = "select * from (((package inner join tracking on package.tracking_id = tracking.tracking_id) inner join package_class on package.package_type = package_class.package_type"
-                + ") inner join package_weight on package.weight_class = package_weight.weight_class);";
+        String query = "select * from ((((package inner join tracking on package.tracking_id = tracking.tracking_id) inner join package_class on package.package_type = package_class.package_type"
+                + ") inner join package_weight on package.weight_class = package_weight.weight_class) left outer join (vehicle inner join station on vehicle.location = station.location_id) on vehicle.vehicle_id"
+                + " = tracking.vehicle_id);";
 
         try {
             Statement stmt = conn.createStatement();
@@ -230,7 +261,12 @@ public class Database {
                 String street = packageitem.getString("destination_street");
                 String number = packageitem.getString("destination_number");
                 String zipcode = Integer.toString(packageitem.getInt("destination_zipcode"));
-                objects.add(new Package(package_id,username,truckid,number + " " + street + " " + city + " " + zipcode,trackingid,null,
+                String location_city = packageitem.getString("location_city");
+                String location_street = packageitem.getString("location_street");
+                String location_number = packageitem.getString("location_number");
+                String location_zipcode = Integer.toString(packageitem.getInt("location_zipcode"));
+                objects.add(new Package(package_id,username,truckid,number + " " + street + " " + city + " " + zipcode, trackingid,
+                        location_number + " " + location_street + " " + location_city + " " + location_zipcode,
                         dateMod,status,hazardous,false,weight_class,package_type,10));
             }
         } catch (SQLException e){

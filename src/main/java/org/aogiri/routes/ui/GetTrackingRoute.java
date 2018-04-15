@@ -50,8 +50,7 @@ public class GetTrackingRoute implements Route {
         if(id != null) {
             pkg = Database.getPackageInfo(conn, id);
 
-            // TODO; Get package history
-            tracking.add(new TrackingEntry("01/01/18","truck", "sample"));
+            tracking = Database.getTrackingHistory(conn, id);
         } else {
             pkg = null;
         }
@@ -67,8 +66,10 @@ public class GetTrackingRoute implements Route {
             vm.put("tracking", tracking);
         }
         else {
-            vm.put("invalid", 1);
-            vm.put("message", "Tracking information not found");
+            if(id != null) {
+                vm.put("invalid", 1);
+                vm.put("message", "Tracking information not found");
+            }
         }
 
         // Render the view
