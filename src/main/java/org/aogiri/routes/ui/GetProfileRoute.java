@@ -40,13 +40,14 @@ public class GetProfileRoute implements Route {
 
         // Retrieve the Session objects
         Session session = request.session();
+        String username = session.attribute("username");
 
         // Build the view-model
         HashMap<String, Object> vm = new HashMap<>();
 
         // What must be populated
         vm.put("title", TITLE);
-        // vm.put("user", Database.getUserInto(conn, request.queryParams("username")));
+        vm.put("member", Database.getUserinfo(conn, "SaraJones"));
 
         // Render the view
         return templateEngine.render(new ModelAndView(vm, VIEW_NAME));

@@ -135,7 +135,8 @@ public class AccountTable {
                 String url = result.getString("profile_url");
                 String cardnumber = result.getString("credit_card_number");
                 String exp = sdfr.format(result.getDate("credit_card_exp"));
-                objects.add(new User(username, password, first, last,new Address(city,street,number,zipcode), new CreditCard(cardnumber,exp),url,null));
+                objects.add(new User(username, password, first, last, number +
+                        " " + street + " " + city + " " + zipcode, new CreditCard(cardnumber,exp),url,null));
             }
             return objects;
         }catch(SQLException e){

@@ -190,6 +190,34 @@ public class Database {
     }
 
     /**
+     * Get user information
+     */
+    public static User getUserinfo(Connection conn, String username) {
+        String query = "select * from account where account.username = '" + username
+                + "';";
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet packageitem = stmt.executeQuery(query);
+
+            while(packageitem.next()) {
+
+                String first_name = packageitem.getString("first_name");
+                String last_name = packageitem.getString("last_name");
+                String city = packageitem.getString("address_city");
+                String street = packageitem.getString("address_street");
+                String number = packageitem.getString("address_number");
+                String zipcode = Integer.toString(packageitem.getInt("address_zipcode"));
+                User user = new User(username, null, first_name, last_name,
+                        number + " " + street + " " + city + " " + zipcode, null, null, null);
+                return user;
+            }
+        } catch (SQLException e){
+            return null;
+        }
+        return null;
+    }
+
+    /**
      * Get all columns of a package by truckID, whether it's international, and the cost
      */
     public static List<Package> getTruckPackages(Connection conn,String vehicleID){

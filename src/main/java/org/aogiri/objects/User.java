@@ -9,7 +9,7 @@ public class User {
     private String firstname;
     private String lastname;
 
-    private Address address;
+    private String address;
 
     private CreditCard credit;
     private String profile_url;
@@ -19,7 +19,7 @@ public class User {
     private String totalPayments;
     private String totalPackages;
 
-    public User(String username, String password, String firstname, String lastname, Address address, CreditCard credit, String profile_url, String membership) {
+    public User(String username, String password, String firstname, String lastname, String address, CreditCard credit, String profile_url, String membership) {
         this.username = username;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -52,7 +52,7 @@ public class User {
         return lastname;
     }
 
-    public Address getAddress() {
+    public String getAddress() {
         return address;
     }
 
