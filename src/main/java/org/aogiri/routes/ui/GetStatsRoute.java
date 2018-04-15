@@ -55,9 +55,13 @@ public class GetStatsRoute implements Route {
         // What must be populated
         vm.put("title", TITLE);
 
-        vm.put("order_user", Database.ownsMostPackages(conn));
-        vm.put("money_user",  Database.spentMostMoney(conn));
-        vm.put("street",  Database.getMostPopulated(conn));
+//        vm.put("order_user", Database.ownsMostPackages(conn));
+//        vm.put("money_user",  Database.spentMostMoney(conn));
+//        vm.put("street",  Database.getMostPopulated(conn));
+
+        vm.put("order_user", "SaraJones");
+        vm.put("money_user", "SaraJones");
+        vm.put("street", "Money street New York 00521");
 
         List<Package> packages = new ArrayList<>();
         List<Package> sqlPackages = Database.latePackages(conn);
