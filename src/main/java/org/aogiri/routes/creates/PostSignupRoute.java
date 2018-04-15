@@ -1,6 +1,8 @@
 package org.aogiri.routes.creates;
 
 import com.google.gson.Gson;
+import org.aogiri.model.AccountTable;
+import org.aogiri.model.NonContractMemberTable;
 import spark.*;
 
 import java.sql.Connection;
@@ -40,7 +42,7 @@ public class PostSignupRoute implements Route{
         String fname = request.queryParams("first-name");
         String lname = request.queryParams("last-name");
         String address = request.queryParams("address");
-        String zipcode = request.queryParams("zipcode");
+        int zipcode = Integer.parseInt(request.queryParams("zipcode"));
 
         // Account Information
         String username = request.queryParams("user");
@@ -55,7 +57,7 @@ public class PostSignupRoute implements Route{
         }
 
         // Account Creation
-
+        AccountTable.addAccount(conn, username, passhash, "test", fname, lname, 0, address, "", zipcode, "", null, null);
 
         // Redirect the user after storing user information
         response.redirect("../", 302);

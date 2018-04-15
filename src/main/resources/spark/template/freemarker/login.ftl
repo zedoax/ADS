@@ -20,7 +20,7 @@
                 <form id="login" class="form-signin ml-2 mr-2" action="../login" method="post">
                     <h6 class="form-signin-heading">Login:</h6>
                     <label for="user" class="sr-only">Username</label>
-                    <input type="text" id="user" class="form-control" placeholder="Username" required autofocus>
+                    <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
                     <div class="p-2"></div>
                     <label for="password" class="sr-only">Password</label>
                     <input type="password" id="password" class="form-control" placeholder="Password" required>

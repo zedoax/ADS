@@ -119,12 +119,13 @@ public class Database {
      */
     public static List<Package> userPackages(Connection conn, String name){
         List<Package> objects = getPackageInfo(conn);
-        for (Object pack:objects) {
-            if(!((Package) pack).getOwner().equals(name)){
-                objects.remove(pack);
+        List<Package> userpack = new ArrayList<>();
+        for (Package pack: objects) {
+            if(pack.getOwner().equals(name)) {
+                userpack.add(pack);
             }
         }
-        return objects;
+        return userpack;
     }
 
     /**
@@ -271,7 +272,6 @@ public class Database {
     public static List<Object> daysUntilDelivery(Connection conn){
         ResultSet result;
         List<Object> objects = new ArrayList<>();
-
 
         String query = "select distinct package_id, date,shipping_days, min(location_log.date) as start_date  "
                         + "from location_log, tracking"

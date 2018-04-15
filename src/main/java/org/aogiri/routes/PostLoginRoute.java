@@ -36,10 +36,12 @@ public class PostLoginRoute implements Route{
         // Retrieve the Session objects
         Session session = request.session();
 
+        String username = request.queryParams("username");
         String hash = request.queryParams("hash");
 
         // Create and store a session token
         session.attribute("session_id", "test value");
+        session.attribute("username", username);
 
         // Redirect the user to their profile
         response.redirect("../", 302);
