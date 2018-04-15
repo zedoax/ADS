@@ -5,9 +5,9 @@ package org.aogiri.objects;
  */
 public class Station {
     private String id;
-    private Address location;
+    private String location;
 
-    public Station(String id, Address location) {
+    public Station(String id, String location) {
         this.id = id;
         this.location = location;
     }
@@ -16,7 +16,7 @@ public class Station {
         return id;
     }
 
-    public Address getLocation() {
+    public String getLocation() {
         return location;
     }
 }

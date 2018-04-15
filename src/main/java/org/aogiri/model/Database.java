@@ -120,9 +120,11 @@ public class Database {
     public static List<Package> userPackages(Connection conn, String name){
         List<Package> objects = getPackageInfo(conn);
         List<Package> userpack = new ArrayList<>();
-        for (Package pack: objects) {
-            if(pack.getOwner().equals(name)) {
-                userpack.add(pack);
+        if(objects != null) {
+            for (Package pack: objects) {
+                if(pack.getOwner().equals(name)) {
+                    userpack.add(pack);
+                }
             }
         }
         return userpack;
@@ -222,12 +224,17 @@ public class Database {
      */
     public static List<Package> getTruckPackages(Connection conn,String vehicleID){
         List<Package> objects = getPackageInfo(conn);
-        for (Object pack:objects) {
-            if(!((Package) pack).getVehicleId().equals(vehicleID)){
-                objects.remove(pack);
+        List<Package> userpack = new ArrayList<>();
+        if(objects != null) {
+            for (Package pack: objects) {
+                if(pack.getVehicleId() != null) {
+                    if(pack.getVehicleId().equals(vehicleID)) {
+                        userpack.add(pack);
+                    }
+                }
             }
         }
-        return objects;
+        return userpack;
     }
 
     /**
@@ -473,6 +480,65 @@ public class Database {
             return objects;
         } catch (SQLException e){
             return null;
+        }
+    }
+
+    public static List<Vehicle> getVehicles(Connection conn) {
+        List<Vehicle> vehicles = new ArrayList<>();
+        String query = "select * from (((vehicle inner join (station as origin) on vehicle.origin_id = origin.location_id" +
+                ") inner join (station as location) on vehicle.location = location.location_id) INNER JOIN (station as destination) on " +
+                " vehicle.destination_id = destination.location_id)";
+
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet result = stmt.executeQuery(query);
+            while (result.next()) {
+                String id = result.getString("vehicle_id");
+                String type = result.getString("vehicle_type");
+                String origin_num = result.getString(7);
+                String origin_street = result.getString(8);
+                String origin_city = result.getString(9);
+                String origin_zipcode = result.getString(10);
+                String location_num = result.getString(12);
+                String location_street = result.getString(13);
+                String location_city = result.getString(14);
+                String location_zipcode = result.getString(15);
+                String destination_num = result.getString(17);
+                String destination_street = result.getString(18);
+                String destination_city = result.getString(19);
+                String destination_zipcode = result.getString(20);
+                vehicles.add(new Vehicle(id, type, origin_num + " " + origin_street + " " + origin_city + " " + origin_zipcode,
+                        location_num + " " + location_street + " " + location_city+ " " + location_zipcode,
+                        destination_num + " " + destination_street + " " + destination_city + " " + destination_zipcode));
+            }
+            return vehicles;
+        } catch (SQLException e) {
+            return vehicles;
+        }
+    }
+
+    public static List<Station> getStations(Connection conn) {
+        List<Station> stations = new ArrayList<>();
+        String query = "select * from (((vehicle inner join (station as origin) on vehicle.origin_id = origin.location_id" +
+                ") inner join (station as location) on vehicle.location = location.location_id) INNER JOIN (station as destination) on " +
+                " vehicle.destination_id = destination.location_id)";
+
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet result = stmt.executeQuery(query);
+            while (result.next()) {
+                String id = result.getString("vehicle_id");
+                String type = result.getString("vehicle_type");
+                String location_num = result.getString("location_number");
+                String location_street = result.getString("location_street");
+                String location_city = result.getString("location_city");
+                String location_zipcode = result.getString("location_zipcode");
+                stations.add(new Station(id, location_num + " " + location_street + " "
+                        + location_city + " " + location_zipcode));
+            }
+            return stations;
+        } catch (SQLException e) {
+            return stations;
         }
     }
 

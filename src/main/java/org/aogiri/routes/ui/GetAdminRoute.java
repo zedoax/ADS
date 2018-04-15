@@ -77,7 +77,11 @@ public class GetAdminRoute implements Route {
 
             // What must be populated
             vm.put("title", TITLE);
-            vm.put("vehicle", new Vehicle("a", "a", "a", "a", "a"));
+            for (Vehicle v : Database.getVehicles(conn)) {
+                if(v.getId().equals(vehicle)) {
+                    vm.put("vehicle", v);
+                }
+            }
 
             List<Package> current = new ArrayList<>();
             List<Package> sqlCurrent = Database.getTruckPackages(conn, vehicle);
@@ -87,7 +91,7 @@ public class GetAdminRoute implements Route {
             vm.put("current", current);
 
             List<Package> delivered = new ArrayList<>();
-            List<Package> sqlDelivered = Database.getDeliveredTruckPackages(conn, vehicle);
+            List<Package> sqlDelivered = new ArrayList<>();
             if(sqlDelivered != null) {
                 delivered.addAll(sqlDelivered);
             }
@@ -119,16 +123,16 @@ public class GetAdminRoute implements Route {
         // What must be populated
         vm.put("title", TITLE);
         List<Vehicle> vehicles = new ArrayList<>();
-//        List<Vehicle> sqlVehicles = Database.getTrucks(conn);
-//        if(sqlVehicles != null) {
-//            vehicles.addAll(sqlVehicles);
-//        }
+        List<Vehicle> sqlVehicles = Database.getVehicles(conn);
+        if(sqlVehicles != null) {
+            vehicles.addAll(sqlVehicles);
+        }
         vm.put("vehicles", vehicles);
         List<Station> stations = new ArrayList<>();
-//        List<Station> sqlStations = Database.getStations(conn);
-//        if(sqlStations != null) {
-//            stations.addAll(sqlStations);
-//        }
+        List<Station> sqlStations = Database.getStations(conn);
+        if(sqlStations != null) {
+            stations.addAll(sqlStations);
+        }
         vm.put("stations", stations);
         List<Package> packages = new ArrayList<>();
         List<Package> pkgs = Database.getPackageInfo(conn);

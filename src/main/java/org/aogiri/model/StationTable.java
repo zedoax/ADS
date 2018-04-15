@@ -80,7 +80,7 @@ public class StationTable {
                 String street = Integer.toString(result.getInt("location_street"));
                 String number = result.getString("location_number");
                 String zipcode = Integer.toString(result.getInt("location_zipcode"));
-                objects.add(new Station(id,new Address(city,street,number,zipcode)));
+                objects.add(new Station(id, number + street + city + zipcode));
             }
             return objects;
         }catch(SQLException e){

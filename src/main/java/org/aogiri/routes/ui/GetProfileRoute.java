@@ -47,7 +47,7 @@ public class GetProfileRoute implements Route {
 
         // What must be populated
         vm.put("title", TITLE);
-        vm.put("member", Database.getUserinfo(conn, "SaraJones"));
+        vm.put("member", Database.getUserinfo(conn, username));
 
         // Render the view
         return templateEngine.render(new ModelAndView(vm, VIEW_NAME));

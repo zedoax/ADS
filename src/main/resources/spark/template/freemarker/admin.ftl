@@ -60,7 +60,7 @@
                             <#list vehicles as vehicle>
                             <tr>
                                 <th>
-                                    ${vehicle.id}
+                                    <a href="../admin?vehicle=${vehicle.id}">${vehicle.id}</a>
                                 </th>
                                 <th>
                                     <p>${vehicle.type}</p>
@@ -144,7 +144,7 @@
                             <#list stations as station>
                             <tr>
                                 <th>
-                                ${station.id}
+                                <a href="../admin?station=${station.id}">${station.id}</a>
                                 </th>
                                 <th>
                                 ${station.location}
@@ -184,7 +184,6 @@
                         <tr>
                             <th>Tracking Number</th>
                             <th>Owner</th>
-                            <th>Origin</th>
                             <th>Current Vechicle</th>
                             <th>Destination</th>
                             <th>Update</th>
@@ -199,13 +198,16 @@
                             <th>
                                 <p>${package.owner}</p>
                             </th>
-                            <th>
-                                <#--${package.origin}-->
-                            </th>
                             <form>
                                 <th>
                                     <select class="custom-select" id="location" name="location">
-                                        <option disabled hidden selected>${package.location}</option>
+                                        <option disabled hidden selected>
+                                            <#if package.location == "null null null 0">
+                                             DELIVERED
+                                            <#else>
+                                            ${package.location}
+                                            </#if>
+                                        </option>
                                         <#list vehicles as vehicle>
                                         <option value="${vehicle.id}">${vehicle.id}</option>
                                         </#list>
