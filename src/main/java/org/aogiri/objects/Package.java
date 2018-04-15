@@ -9,7 +9,7 @@ public class Package {
 
     private String truck;
 
-    private Address destination; //City Street Number
+    private String destination; //City Street Number
     private String location;
     private String origin;
 
@@ -26,7 +26,7 @@ public class Package {
     private String trackingid;
     private String vehicleid;
 
-    public Package(String id, String owner, String truck, Address destination, String location, String origin, String eta, String status, boolean hazardous, boolean international, String weight, String pkgtype, float price) {
+    public Package(String id, String owner, String truck, String destination, String location, String origin, String eta, String status, boolean hazardous, boolean international, String weight, String pkgtype, float price) {
         this.id = id;
         this.owner = owner;
         this.truck = truck;
@@ -54,7 +54,7 @@ public class Package {
         this.vehicleid = vehicleid;
     }
 
-    public Package(String id, String owner, String truck, Address destination, String location, String origin, String eta, String status) {
+    public Package(String id, String owner, String truck, String destination, String location, String origin, String eta, String status) {
         this.id = id;
         this.owner = owner;
         this.truck = truck;
@@ -87,7 +87,7 @@ public class Package {
         return truck;
     }
 
-    public Address getDestination() {
+    public String getDestination() {
         return destination;
     }
 

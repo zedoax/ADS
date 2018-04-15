@@ -200,7 +200,7 @@
                                 <p>${package.owner}</p>
                             </th>
                             <th>
-                                ${package.origin}
+                                <#--${package.origin}-->
                             </th>
                             <form>
                                 <th>

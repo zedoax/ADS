@@ -4,10 +4,7 @@ import org.aogiri.objects.*;
 import org.aogiri.objects.Package;
 import org.h2.api.Trigger;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -210,33 +207,30 @@ public class Database {
         String dateMod = "packageitem inner join arrival on "
                         + "packageitem.package_id = arrival.package_id;";
 
+        String query = "select * from (((package inner join tracking on package.tracking_id = tracking.tracking_id) inner join package_class on package.package_type = package_class.package_type"
+                + ") inner join package_weight on package.weight_class = package_weight.weight_class);";
+
         try {
             Statement stmt = conn.createStatement();
-            packageitem = stmt.executeQuery(addition);
-            packageitem = stmt.executeQuery(update);
-            packageitem = stmt.executeQuery(zip);
-            packageitem = stmt.executeQuery(typemod);
-            packageitem = stmt.executeQuery(weightmod);
-            packageitem = stmt.executeQuery(international);
-            packageitem = stmt.executeQuery(dateMod);
+            packageitem = stmt.executeQuery(query);
 
             while(packageitem.next()) {
-                String package_id = Integer.toString(packageitem.getInt("package_id"));
+
+                String package_id = packageitem.getString("package_id");
                 String weight_class = packageitem.getString("weight_class");
                 String package_type = packageitem.getString("package_type");
                 Boolean hazardous = packageitem.getBoolean("hazardous");
                 String username = packageitem.getString("username");
-                String trackingid = Integer.toString(packageitem.getInt("trackingid"));
-                Boolean national = packageitem.getBoolean("international");
-                Float cost = packageitem.getFloat("cost");
-                String truckid = Integer.toString(packageitem.getInt("vehicle_id"));
+                String trackingid = packageitem.getString("tracking_id");
+                // Float cost = packageitem.getFloat("cost");
+                String truckid = packageitem.getString("vehicle_id");
                 String status = packageitem.getString("status");
-                String city = packageitem.getString("address_city");
-                String street = Integer.toString(packageitem.getInt("address_street"));
-                String number = packageitem.getString("address_number");
-                String zipcode = Integer.toString(packageitem.getInt("address_zipcode"));
-                objects.add(new Package(package_id,username,truckid,new Address(city,street,number,zipcode),null,null,
-                        dateMod,status,hazardous,national,weight_class,package_type,cost));
+                String city = packageitem.getString("destination_city");
+                String street = packageitem.getString("destination_street");
+                String number = packageitem.getString("destination_number");
+                String zipcode = Integer.toString(packageitem.getInt("destination_zipcode"));
+                objects.add(new Package(package_id,username,truckid,number + " " + street + " " + city + " " + zipcode,trackingid,null,
+                        dateMod,status,hazardous,false,weight_class,package_type,10));
             }
         } catch (SQLException e){
             return null;
